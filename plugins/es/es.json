@@ -1,0 +1,44 @@
+{
+  "id": "/es",
+  "cmd": null,
+  "cpus": 0.2,
+  "mem": 512,
+  "disk": 0,
+  "instances": 1,
+  "acceptedResourceRoles": [
+    "*"
+  ],
+  "container": {
+    "type": "DOCKER",
+    "volumes": [],
+    "docker": {
+      "image": "registry.cn-hangzhou.aliyuncs.com/omega-reg/elasticsearch:5.2.2",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 9200,
+          "hostPort": 9200,
+          "protocol": "tcp",
+          "labels": {}
+        },
+        {
+          "containerPort": 9300,
+          "hostPort": 9300,
+          "protocol": "tcp",
+          "labels": {}
+        }
+      ],
+      "privileged": false,
+      "parameters": [],
+      "forcePullImage": false
+    }
+  },
+  "env": {
+    "ES_JAVA_OPTS": "-Xmx256m -Xms256m",
+    "xpack.security.enabled": "false",
+    "xpack.monitoring.enabled": "false",
+    "xpack.graph.enabled": "false",
+    "xpack.watcher.enabled": "false"
+  },
+   "args": []
+}

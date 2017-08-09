@@ -1,0 +1,32 @@
+[Unit]
+Description=Docker Application Container Engine
+Documentation=http://docs.docker.com
+After=network.target
+Requires=bootstrap.socket
+
+[Service]
+Type=notify
+NotifyAccess=all
+EnvironmentFile=-/etc/sysconfig/bootstrap
+Environment=GOTRACEBACK=crash
+Environment=DOCKER_HTTP_HOST_COMPAT=1
+Environment=PATH=/usr/libexec/docker:/usr/bin:/usr/sbin
+ExecStart=/usr/bin/docker daemon -H unix:///var/run/bootstrap.sock \
+          -p /var/run/bootstrap.pid  \
+          --iptables=false \
+          --ip-masq=false \
+          --bridge=none \
+          -s overlay \
+          --graph=/var/lib/bootstrap \
+          --exec-root=/var/run/bootstrap  \
+          $BOOTSTRAP_OPTS
+ExecReload=/bin/kill -s HUP $MAINPID
+LimitNOFILE=10485760
+LimitNPROC=10485760
+LimitCORE=infinity
+TimeoutStartSec=0
+Restart=on-abnormal
+MountFlags=slave
+
+[Install]
+WantedBy=multi-user.target
