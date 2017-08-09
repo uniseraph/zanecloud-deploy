@@ -9,13 +9,13 @@ BUILD_TIME = $(shell date --rfc-3339 ns 2>/dev/null | sed -e 's/ /T/')
 
 
 release:
-	rm -rf release && mkdir -p release/mesos-deploy
-	cp -r plugins release/mesos-deploy
-	cp -r compose release/mesos-deploy
-	cp -r systemd release/mesos-deploy
-	cp *.conf release/mesos-deploy
-	cp *.sh release/mesos-deploy
-	cd release && tar zcvf mesos-deploy-${VERSION}-${GITCOMMIT}.tar.gz  mesos-deploy && cd ..
+	rm -rf release && mkdir -p release/zanecloud-deploy
+	cp -r plugins release/zanecloud-deploy
+	cp -r compose release/zanecloud-deploy
+	cp -r systemd release/zanecloud-deploy
+	cp *.conf release/zanecloud-deploy
+	cp *.sh release/zanecloud-deploy
+	cd release && tar zcvf zanecloud-deploy-${VERSION}-${GITCOMMIT}.tar.gz  zanecloud-deploy && cd ..
 
 
 

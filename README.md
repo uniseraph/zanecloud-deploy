@@ -6,10 +6,10 @@
 
 ### 准备工作
 
-在所有机器上执行如下命令，安装git和mesos-deploy
+在所有机器上执行如下命令，安装git和zanecloud-deploy
 
 ```
-yum install -y git && cd /opt && git clone https://github.com/uniseraph/mesos-deploy.git && cd mesos-deploy 
+yum install -y git && cd /opt && git clone https://github.com/uniseraph/zanecloud-deploy.git && cd zanecloud-deploy
 ```
 
 
@@ -26,7 +26,7 @@ export FLANNEL_NETWORK=172.16.0.0/12
 ### 初始化 master 相关服务
 
 ```
-cd /opt/mesos-deploy && MASTER0_IP=xxxx MASTER1_IP=xxxx MASTER2_IP=xxxx PROVIDER=aliyun API_SERVER=tcp://xxxx:8080 bash -x setup-master.sh  --type=swarm
+cd /opt/zanecloud-deploy && MASTER0_IP=xxxx MASTER1_IP=xxxx MASTER2_IP=xxxx PROVIDER=aliyun API_SERVER=tcp://xxxx:8080 bash -x setup-master.sh  --type=swarm
 ```
 
 以上MASTERx_IP均为VM的内网IP，API_SERVER的IP是公网IP（如果Docker集群与API服务器在同一个集群，则也可以使用私网IP）。
@@ -42,7 +42,7 @@ cd /opt/mesos-deploy && MASTER0_IP=xxxx MASTER1_IP=xxxx MASTER2_IP=xxxx PROVIDER
 ### 初始化 worker相关服务
 
 ```
-cd /opt/mesos-deploy && MASTER0_IP=xxxx MASTER1_IP=xxxx MASTER2_IP=xxxx PROVIDER=aliyun  bash setup-worker.sh --type=swarm
+cd /opt/zanecloud-deploy && MASTER0_IP=xxxx MASTER1_IP=xxxx MASTER2_IP=xxxx PROVIDER=aliyun  bash setup-worker.sh --type=swarm
 ```
 
 以上MASTERx_IP均为VM的内网IP。
