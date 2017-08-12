@@ -117,6 +117,9 @@ else
     exit -1
 fi
 
+if [[ ${PROVIDER} == "aws" ]]; then
+    bash -x plugins/elbv2/start.sh
+fi
 
 
 if [[ ${WITH_ELK} == true ]]; then

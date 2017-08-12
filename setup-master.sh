@@ -123,6 +123,12 @@ else
 fi
 
 
+if [[ ${PROVIDER} == "aws" ]]; then
+    bash -x plugins/elbv2/start.sh
+fi
+
+
+
 if [[ ${WITH_ELK} == true ]]; then
     bash -x plugins/elk/start.sh logspout logstash  kibana elasticsearch
 fi
