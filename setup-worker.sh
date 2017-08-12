@@ -29,9 +29,9 @@ WITH_HDFS=false
 WITH_YARN=false
 WITH_ELK=false
 WITH_EBK=false
+WITH_ELBV2=false
 
-
-ARGS=`getopt -a -o T: -l type:,with-cadvisor,with-yarn,with-elk,with-ebk,with-hdfs,help -- "$@" `
+ARGS=`getopt -a -o T: -l type:,with-cadvisor,with-yarn,with-elk,with-ebk,with-hdfs,with-elbv2,help -- "$@" `
 [ $? -ne 0 ] && usage
 #set -- "${ARGS}"
 eval set -- "${ARGS}"
@@ -57,6 +57,9 @@ do
         --with-yarn)
                 WITH_YARN=true
                 ;;
+        --with-elbv2)
+                WITH_ELBV2=true
+                ;;
         -h|--help)
                 usage
                 ;;
@@ -75,6 +78,7 @@ echo "WITH_YARN=${WITH_YARN}"
 echo "WITH_HDFS=${WITH_HDFS}"
 echo "WITH_ELK=${WITH_ELK}"
 echo "WITH_ELK=${WITH_EBK}"
+echo "WITH_ELBV2=${WITH_ELBV2}"
 
 
 if type apt-get >/dev/null 2>&1; then
@@ -117,7 +121,7 @@ else
     exit -1
 fi
 
-if [[ ${PROVIDER} == "aws" ]]; then
+if [[ ${WITH_ELBV2} == true ]]; then
     bash -x plugins/elbv2/start.sh
 fi
 
