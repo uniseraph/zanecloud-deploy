@@ -2,6 +2,10 @@
 
 BASE_DIR=$(cd `dirname $0` && pwd -P)
 
+AWS_REGION=$(curl -fsL 169.254.169.254/latest/meta-data/region)
+AWS_INSTANCE_ID=$(curl -fsL 169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)
+
+
 docker run --net=host -ti --rm \
         -v ${BASE_DIR}:${BASE_DIR} \
 	    -v /var/run/docker.sock:/var/run/docker.sock \
