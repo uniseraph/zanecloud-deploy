@@ -30,8 +30,9 @@ WITH_YARN=false
 WITH_ELK=false
 WITH_EBK=false
 WITH_ELBV2=false
+WITH_SLB=false
 
-ARGS=`getopt -a -o T: -l type:,with-cadvisor,with-yarn,with-elk,with-ebk,with-hdfs,with-elbv2,help -- "$@" `
+ARGS=`getopt -a -o T: -l type:,with-cadvisor,with-yarn,with-elk,with-ebk,with-hdfs,with-elbv2,with-slb,help -- "$@" `
 [ $? -ne 0 ] && usage
 #set -- "${ARGS}"
 eval set -- "${ARGS}"
@@ -79,6 +80,7 @@ echo "WITH_HDFS=${WITH_HDFS}"
 echo "WITH_ELK=${WITH_ELK}"
 echo "WITH_ELK=${WITH_EBK}"
 echo "WITH_ELBV2=${WITH_ELBV2}"
+echo "WITH_SLB=${WITH_SLB}"
 
 
 if type apt-get >/dev/null 2>&1; then
@@ -124,7 +126,9 @@ fi
 if [[ ${WITH_ELBV2} == true ]]; then
     bash -x plugins/elbv2/start.sh
 fi
-
+if [[ ${WITH_ELBV2} == true ]]; then
+    bash -x plugins/slb/start.sh
+fi
 
 if [[ ${WITH_ELK} == true ]]; then
     bash -x plugins/elk/start.sh logspout logstash

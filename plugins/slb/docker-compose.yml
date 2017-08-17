@@ -12,10 +12,10 @@ services:
   labels:
    - com.zanecloud.labels.system=true
   environment:
-   - "affinity:container!=*watchdog-elbv2*"
+   - "affinity:container!=*watchdog-slb*"
    - DOCKER_HOST=unix:///var/run/docker.sock
-   - AWS_REGION=${AWS_REGION} \
-   - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}  \
-   - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
-   - AWS_INSTANCE_ID=${AWS_INSTANCE_ID} \
-  command: --log-level=debug elbv2://${LOCAL_IP}:8500
+   - REGION=${REGION} \
+   - ACCESS_KEY_ID=${ACCESS_KEY_ID}  \
+   - SECRET_ACCESS_KEY=${SECRET_ACCESS_KEY} \
+   - INSTANCE_ID=${INSTANCE_ID} \
+  command: --log-level=debug slb://${LOCAL_IP}:8500

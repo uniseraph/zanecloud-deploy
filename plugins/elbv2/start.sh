@@ -2,8 +2,8 @@
 
 BASE_DIR=$(cd `dirname $0` && pwd -P)
 
-AWS_REGION=$(curl -fsL 169.254.169.254/latest/meta-data/region)
-AWS_INSTANCE_ID=$(curl -fsL 169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)
+AWS_INSTANCE_ID=$(curl -fsL 169.254.169.254/latest/meta-data/instance-id)
+AWS_REGION=$(curl -fsL 169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)
 
 
 docker run --net=host -ti --rm \
