@@ -16,6 +16,6 @@ services:
    - DOCKER_HOST=unix:///var/run/docker.sock
    - REGION=${REGION} \
    - ACCESS_KEY_ID=${ACCESS_KEY_ID}  \
-   - SECRET_ACCESS_KEY=${SECRET_ACCESS_KEY} \
+   - ACCESS_KEY_SECRET=${ACCESS_KEY_SECRET} \
    - INSTANCE_ID=${INSTANCE_ID} \
   command: --log-level=debug slb://${LOCAL_IP}:8500
