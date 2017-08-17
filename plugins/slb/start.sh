@@ -2,8 +2,8 @@
 
 BASE_DIR=$(cd `dirname $0` && pwd -P)
 
-INSTANCE_ID=$(curl -fsL 100.100.100.200/latest/meta-data/region)
-REGION=$(curl -fsL  100.100.100.200/latest/dynamic/instance-identity/document | jq -r .region)
+REGION=$(curl -fsL 100.100.100.200/latest/meta-data/region-id)
+INSTANCE_ID=$(curl -fsL  100.100.100.200/latest/meta-data/instance-id)
 
 
 docker run --net=host -ti --rm \
