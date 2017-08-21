@@ -86,7 +86,7 @@ if type apt-get >/dev/null 2>&1; then
 
 elif type yum >/dev/nul 2>&1; then
   echo 'using yum'
-  sudo yum install -y git jq bind-utils bridge-utils tcpdump dnsmasq haveged strace pstack htop iostat vmstat curl wget sysdig pidstat mpstat iotop blktrace perf  dstat ltrace lsof
+  sudo yum install -y git jq bind-utils bridge-utils tcpdump dnsmasq haveged strace  htop   curl wget    iotop blktrace perf  dstat ltrace lsof
   export LOCAL_IP=$(ifconfig eth0 | grep inet | awk '{{print $2}}' )
 
 else
