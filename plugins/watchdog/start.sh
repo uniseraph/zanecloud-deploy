@@ -2,11 +2,10 @@
 
 BASE_DIR=$(cd `dirname $0` && pwd -P)
 
-docker run --net=host -ti --rm \
+docker -H unix:///var/run/bootstrap.sock run --net=host -ti --rm \
         -v ${BASE_DIR}:${BASE_DIR} \
-	    -v /var/run/docker.sock:/var/run/docker.sock \
-        -e DOCKER_HOST=unix:///var/run/docker.sock  \
-        -e LOCAL_IP=${LOCAL_IP} \
+	    -v /var/run/bootstrap.sock:/var/run/bootstrap.sock \
+        -e DOCKER_HOST=unix:///var/run/bootstrap.sock  \
         -w ${BASE_DIR} \
         docker/compose:1.9.0 \
         up -d $*
