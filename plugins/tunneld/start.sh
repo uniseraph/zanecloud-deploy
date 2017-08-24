@@ -24,7 +24,7 @@ elif  [[ ${PROVIDER} == "aliyun" ]]; then
         TUNNELD_IP=$(curl http://100.100.100.200/latest/meta-data/local-ipv4)
     fi
 elif  [[ ${PROVIDER} == "native" ]]; then
-    TUNNELD_IP=$(LOCAL_IP)
+    TUNNELD_IP=${LOCAL_IP}
 else
    echo "no such provider ${PROVIDER}"
    exit
