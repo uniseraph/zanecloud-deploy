@@ -131,3 +131,6 @@ if [[ ${WITH_EBK} == true ]]; then
     bash -x plugins/elk/start.sh  kibana elasticsearch
     bash -x plugins/beats/start.sh
 fi
+
+
+echo "nameserver 127.0.0.1" > /etc/resolv.conf

@@ -24,7 +24,6 @@ FLANNEL_NETWORK=${FLANNEL_NETWORK:-"192.168.0.0/16"}
 
 if [[ ! -f /etc/dnsmasq.resolv.conf ]]; then
     cp -f /etc/resolv.conf /etc/dnsmasq.resolv.conf
-    echo "nameserver 127.0.0.1" > /etc/resolv.conf
 fi
 
 DNS_SERVERS=$( cat /etc/dnsmasq.resolv.conf | grep nameserver | awk '{{print $2}}' | xargs -n 1 printf "-S %-10s " $1 )
