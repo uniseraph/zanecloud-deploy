@@ -6,10 +6,10 @@
 
 ### 准备工作
 
-在所有机器上执行如下命令，安装git和zanecloud-deploy
+在所有机器上执行如下命令，安装zanecloud-deploy
 
 ```
-yum install -y git && cd /opt && git clone https://github.com/uniseraph/zanecloud-deploy.git && cd zanecloud-deploy
+cd /opt && wget http://zanecloud-deploy.oss-cn-beijing.aliyuncs.com/zanecloud-deploy-1.0.0-18ddf1e.tar.gz && tar zxvf zanecloud-deploy-1.0.0-18ddf1e.tar.gz
 ```
 
 
