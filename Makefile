@@ -13,6 +13,7 @@ release:
 	cp -r plugins release/zanecloud-deploy
 	cp -r compose release/zanecloud-deploy
 	cp -r systemd release/zanecloud-deploy
+	cp -r apt     release/zanecloud-deploy
 	cp *.conf release/zanecloud-deploy
 	cp *.sh release/zanecloud-deploy
 	cd release && tar zcvf zanecloud-deploy-${VERSION}-${GITCOMMIT}.tar.gz  zanecloud-deploy && cd ..
