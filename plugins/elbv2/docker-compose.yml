@@ -14,8 +14,8 @@ services:
   environment:
    - "affinity:container!=*watchdog-elbv2*"
    - DOCKER_HOST=unix:///var/run/docker.sock
-   - AWS_REGION=${AWS_REGION} \
-   - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}  \
-   - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
-   - AWS_INSTANCE_ID=${AWS_INSTANCE_ID} \
+   - AWS_REGION=${AWS_REGION}
+   - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+   - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+   - AWS_INSTANCE_ID=${AWS_INSTANCE_ID}
   command: --log-level=debug --ip ${LOCAL_IP} elbv2://${LOCAL_IP}:8500
