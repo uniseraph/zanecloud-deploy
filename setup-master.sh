@@ -81,6 +81,8 @@ echo "WITH_SLB=${WITH_SLB}"
 
 if type apt-get >/dev/null 2>&1; then
   echo 'using apt-get '
+  sudo systemctl stop docker
+  sudo systemctl unmask docker
   sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
   sudo cp ./apt/sources.list /etc/apt/sources.list
   sudo apt-get remove -y docker.engine
