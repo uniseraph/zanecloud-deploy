@@ -81,8 +81,9 @@ echo "WITH_SLB=${WITH_SLB}"
 
 if type apt-get >/dev/null 2>&1; then
   echo 'using apt-get '
-  sudo mv /etc/apt/source.list /etc/apt/source.list.bak
-  sudo cp ./apt/source.list /etc/apt/source.list
+  sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
+  sudo cp ./apt/sources.list /etc/apt/sources.list
+  sudo apt-get remove -y docker.engine
   sudo apt-get update && apt-get install -y git jq  bridge-utils tcpdump  haveged strace pstack htop  curl wget  iotop blktrace   dstat ltrace lsof
   export LOCAL_IP=$(ifconfig eth0 | grep inet\ addr | awk '{print $2}' | awk -F: '{print $2}')
 

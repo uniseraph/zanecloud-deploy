@@ -6,10 +6,10 @@ AWS_INSTANCE_ID=$(curl -fsL 169.254.169.254/latest/meta-data/instance-id)
 AWS_REGION=$(curl -fsL 169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)
 
 
-docker run --net=host -ti --rm \
+docker -H unix:///var/run/bootstrap.sock run --net=host -ti --rm \
         -v ${BASE_DIR}:${BASE_DIR} \
-	    -v /var/run/docker.sock:/var/run/docker.sock \
-        -e DOCKER_HOST=unix:///var/run/docker.sock  \
+	    -v /var/run/bootstrap.sock:/var/run/bootstrap.sock \
+        -e DOCKER_HOST=unix:///var/run/bootstrap.sock  \
         -e LOCAL_IP=${LOCAL_IP} \
         -e AWS_REGION=${AWS_REGION} \
 	    -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}  \

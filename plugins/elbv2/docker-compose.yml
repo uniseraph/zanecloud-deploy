@@ -2,7 +2,7 @@ version: '2'
 
 services:
  watchdog:
-  image: registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-34da6e1
+  image: registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-d2cac7f
   restart: always
   network_mode: host
   privileged: true
