@@ -80,21 +80,9 @@ echo "WITH_ELBV2=${WITH_ELBV2}"
 echo "WITH_SLB=${WITH_SLB}"
 
 if type apt-get >/dev/null 2>&1; then
-  echo 'using apt-get '
-  sudo systemctl stop docker
-  sudo systemctl unmask docker
-  sudo systemctl unmask docker.socket
-  sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
-  sudo cp ./apt/sources.list /etc/apt/sources.list
-  sudo apt-get remove -y docker.engine
-  sudo apt-get update && apt-get install -y git jq  bridge-utils tcpdump  haveged strace pstack htop  curl wget  iotop blktrace   dstat ltrace lsof
-  export LOCAL_IP=$(ifconfig eth0 | grep inet\ addr | awk '{print $2}' | awk -F: '{print $2}')
-
+    export LOCAL_IP=$(ifconfig eth0 | grep inet\ addr | awk '{print $2}' | awk -F: '{print $2}')
 elif type yum >/dev/nul 2>&1; then
-  echo 'using yum'
-  sudo yum install -y git jq bind-utils bridge-utils tcpdump  haveged strace  htop   curl wget    iotop blktrace perf  dstat ltrace lsof
   export LOCAL_IP=$(ifconfig eth0 | grep inet | awk '{{print $2}}' )
-
 else
   echo "no apt-get and no yum, exit"
   exit
