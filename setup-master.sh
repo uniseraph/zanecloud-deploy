@@ -81,12 +81,14 @@ echo "WITH_SLB=${WITH_SLB}"
 
 if type apt-get >/dev/null 2>&1; then
   echo 'using apt-get '
+  sudo mv /etc/apt/source.list /etc/apt/source.list.bak
+  sudo cp ./apt/source.list /etc/apt/source.list
   sudo apt-get update && apt-get install -y git jq  bridge-utils tcpdump  haveged strace pstack htop  curl wget  iotop blktrace   dstat ltrace lsof
   export LOCAL_IP=$(ifconfig eth0 | grep inet\ addr | awk '{print $2}' | awk -F: '{print $2}')
 
 elif type yum >/dev/nul 2>&1; then
   echo 'using yum'
-  sudo yum install -y git jq bind-utils bridge-utils tcpdump dnsmasq haveged strace  htop   curl wget    iotop blktrace perf  dstat ltrace lsof
+  sudo yum install -y git jq bind-utils bridge-utils tcpdump  haveged strace  htop   curl wget    iotop blktrace perf  dstat ltrace lsof
   export LOCAL_IP=$(ifconfig eth0 | grep inet | awk '{{print $2}}' )
 
 else
@@ -149,3 +151,6 @@ if [[ ${WITH_EBK} == true ]]; then
     bash -x plugins/elk/start.sh  kibana elasticsearch
     bash -x plugins/beats/start.sh
 fi
+
+
+echo "nameserver 127.0.0.1" > /etc/resolv.conf

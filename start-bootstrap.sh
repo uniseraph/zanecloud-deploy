@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-#LOCAL_IP=$(ifconfig eth0 | grep inet\ addr | awk '{print $2}' | awk -F: '{print $2}')
-
 ETCD_NAME="etcd0"
 
 if [[ "${LOCAL_IP}" == "${MASTER0_IP}" ]]; then
@@ -9,12 +7,10 @@ if [[ "${LOCAL_IP}" == "${MASTER0_IP}" ]]; then
     ZOO_MY_ID=1
 fi
 
-
 if [[ "${LOCAL_IP}" == "${MASTER1_IP}" ]]; then
     ETCD_NAME="etcd1"
     ZOO_MY_ID=2
 fi
-
 
 if [[ "${LOCAL_IP}" == "${MASTER2_IP}" ]]; then
     ETCD_NAME="etcd2"
@@ -25,6 +21,13 @@ fi
 ZK_URL=${ZK_URL:-"zk://${MASTER0_IP}:2181,${MASTER1_IP}:2181,${MASTER2_IP}:2181"}
 BOOTSTRAP_EXPECT=${BOOTSTRAP_EXPECT:-3}
 FLANNEL_NETWORK=${FLANNEL_NETWORK:-"192.168.0.0/16"}
+
+if [[ ! -f /etc/dnsmasq.resolv.conf ]]; then
+    cp -f /etc/resolv.conf /etc/dnsmasq.resolv.conf
+fi
+
+DNS_SERVERS=$( cat /etc/dnsmasq.resolv.conf | grep nameserver | awk '{{print $2}}' | xargs -n 1 printf "-S %-10s "  )
+
 
 
 docker -H unix:///var/run/bootstrap.sock run --net=host -ti --rm -v $(pwd):$(pwd) \
@@ -38,6 +41,7 @@ docker -H unix:///var/run/bootstrap.sock run --net=host -ti --rm -v $(pwd):$(pwd
         -e ZOO_MY_ID=${ZOO_MY_ID} \
         -e ETCD_NAME=${ETCD_NAME} \
         -e BOOTSTRAP_EXPECT=${BOOTSTRAP_EXPECT} \
+        -e DNS_SERVERS="${DNS_SERVERS}" \
         -w $(pwd)  \
         docker/compose:1.9.0 \
         -f compose/bootstrap.yml \
