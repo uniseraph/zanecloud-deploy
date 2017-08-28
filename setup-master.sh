@@ -72,8 +72,8 @@ echo "WITH_ELK=${WITH_EBK}"
 
 if type apt-get >/dev/null 2>&1; then
   echo 'using apt-get '
-  sudo mv /etc/apt/source.list /etc/apt/source.list.bak
-  sudo cp ./apt/source.list /etc/apt/source.list
+  #sudo mv /etc/apt/source.list /etc/apt/source.list.bak
+  #sudo cp ./apt/source.list /etc/apt/source.list
   sudo apt-get update && apt-get install -y git jq  bridge-utils tcpdump  haveged strace pstack htop  curl wget  iotop blktrace   dstat ltrace lsof
   export LOCAL_IP=$(ifconfig eth0 | grep inet\ addr | awk '{print $2}' | awk -F: '{print $2}')
 
