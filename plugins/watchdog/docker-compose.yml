@@ -2,7 +2,7 @@ version: '2'
 
 services:
  watchdog:
-  image: registry.cn-hangzhou.aliyuncs.com/omega-reg/watchdog:0.2.0-5ef93f0
+  image: registry.cn-hangzhou.aliyuncs.com/omega-reg/watchdog:0.2.0-cee955d
   restart: always
   network_mode: host
   privileged: true
@@ -15,3 +15,4 @@ services:
    - "affinity:container!=*watchdog*"
    - DOCKER_HOST=unix:///var/run/docker.sock
   command: --log-level=debug -m docker-compose --ip ${LOCAL_IP} consul://127.0.0.1:8500
+
