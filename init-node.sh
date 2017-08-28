@@ -10,6 +10,7 @@ if type apt-get >/dev/null 2>&1; then
   sudo systemctl unmask docker
   sudo systemctl unmask docker.socket
   sudo rm -rf /etc/init.d/docker
+  sudo rm -rf /etc/docker/key.json  #aws的镜像可能残留docker的key.json，会导致swarm node ID dup
   sudo apt-get update && apt-get install -y git jq  bridge-utils tcpdump  haveged strace pstack htop  curl wget  iotop blktrace   dstat ltrace lsof
 
 elif type yum >/dev/nul 2>&1; then
