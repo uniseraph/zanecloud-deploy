@@ -10,7 +10,6 @@ docker -H unix:///var/run/bootstrap.sock run --net=host -ti --rm \
         -v ${BASE_DIR}:${BASE_DIR} \
 	    -v /var/run/bootstrap.sock:/var/run/bootstrap.sock \
         -e DOCKER_HOST=unix:///var/run/bootstrap.sock  \
-        -e LOCAL_IP=${LOCAL_IP} \
         -e REGION_ID=${REGION_ID} \
 	    -e ACCESS_KEY_ID=${ACCESS_KEY_ID}  \
 	    -e ACCESS_KEY_SECRET=${ACCESS_KEY_SECRET} \

@@ -10,7 +10,6 @@ docker -H unix:///var/run/bootstrap.sock run --net=host -ti --rm \
         -v ${BASE_DIR}:${BASE_DIR} \
 	    -v /var/run/bootstrap.sock:/var/run/bootstrap.sock \
         -e DOCKER_HOST=unix:///var/run/bootstrap.sock  \
-        -e LOCAL_IP=${LOCAL_IP} \
         -e AWS_REGION=${AWS_REGION} \
 	    -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}  \
 	    -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \

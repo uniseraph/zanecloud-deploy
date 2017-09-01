@@ -18,4 +18,4 @@ services:
    - ACCESS_KEY_ID=${ACCESS_KEY_ID}
    - ACCESS_KEY_SECRET=${ACCESS_KEY_SECRET}
    - INSTANCE_ID=${INSTANCE_ID}
-  command: --log-level=debug slb://${LOCAL_IP}:8500
+  command: --log-level=debug slb://127.0.0.1:8500
