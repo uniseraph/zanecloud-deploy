@@ -6,10 +6,10 @@ REGION_ID=$(curl -fsL 100.100.100.200/latest/meta-data/region-id)
 INSTANCE_ID=$(curl -fsL  100.100.100.200/latest/meta-data/instance-id)
 
 
-docker run --net=host -ti --rm \
+docker -H unix:///var/run/bootstrap.sock run --net=host -ti --rm \
         -v ${BASE_DIR}:${BASE_DIR} \
-	    -v /var/run/docker.sock:/var/run/docker.sock \
-        -e DOCKER_HOST=unix:///var/run/docker.sock  \
+	    -v /var/run/bootstrap.sock:/var/run/bootstrap.sock \
+        -e DOCKER_HOST=unix:///var/run/bootstrap.sock  \
         -e LOCAL_IP=${LOCAL_IP} \
         -e REGION_ID=${REGION_ID} \
 	    -e ACCESS_KEY_ID=${ACCESS_KEY_ID}  \
