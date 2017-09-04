@@ -10,7 +10,7 @@
 
 ```
 cd /opt && \
-wget http://zanecloud-deploy.oss-cn-beijing.aliyuncs.com/zanecloud-deploy-1.0.0-18ddf1e.tar.gz && \
+wget http://zanecloud-deploy.oss-cn-beijing.aliyuncs.com/zanecloud-deploy-1.0.0-5d286e2.tar.gz && \
 tar zxvf zanecloud-deploy-1.0.0-18ddf1e.tar.gz
 ```
 
