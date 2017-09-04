@@ -19,4 +19,4 @@ release:
 
 
 
-.PHONY: build release
+.PHONY: release

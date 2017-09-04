@@ -24,8 +24,10 @@ WITH_YARN=false
 WITH_ELK=false
 WITH_EBK=false
 WITH_ZLB=false
+WITH_ELBV2=false
+WITH_SLB=false
 
-ARGS=`getopt -a -o T: -l type:,with-cadvisor,with-yarn,with-elk,with-ebk,with-hdfs,help -- "$@" `
+ARGS=`getopt -a -o T: -l type:,with-cadvisor,with-yarn,with-elk,with-ebk,with-hdfs,with-elbv2,with-slb,help -- "$@" `
 [ $? -ne 0 ] && usage
 #set -- "${ARGS}"
 eval set -- "${ARGS}"
@@ -54,6 +56,12 @@ do
         --with-zlb)
                 WITH_ZLB=true
                 ;;
+         --with-elbv2)
+                WITH_ELBV2=true
+                ;;
+        --with-slb)
+                WITH_SLB=true
+                ;;
         -h|--help)
                 usage
                 ;;
@@ -73,18 +81,14 @@ echo "WITH_HDFS=${WITH_HDFS}"
 echo "WITH_ELK=${WITH_ELK}"
 echo "WITH_ELK=${WITH_EBK}"
 echo "WITH_ZLB=${WITH_ZLB}"
+echo "WITH_ELBV2=${WITH_ELBV2}"
+echo "WITH_SLB=${WITH_SLB}"
 
 
 if type apt-get >/dev/null 2>&1; then
-  echo 'using apt-get '
-  sudo apt-get update && apt-get install -y git jq  bridge-utils tcpdump  haveged strace pstack htop  curl wget  iotop blktrace   dstat ltrace lsof
-  export LOCAL_IP=$(ifconfig eth0 | grep inet\ addr | awk '{print $2}' | awk -F: '{print $2}')
-
+    export LOCAL_IP=$(ifconfig eth0 | grep inet\ addr | awk '{print $2}' | awk -F: '{print $2}')
 elif type yum >/dev/nul 2>&1; then
-  echo 'using yum'
-  sudo yum install -y git jq bind-utils bridge-utils tcpdump  haveged strace pstack htop iostat vmstat curl wget sysdig pidstat mpstat iotop blktrace perf  dstat ltrace lsof
   export LOCAL_IP=$(ifconfig eth0 | grep inet | awk '{{print $2}}' )
-
 else
   echo "no apt-get and no yum, exit"
   exit
@@ -125,6 +129,15 @@ elif [[ ${TYPE} == "kubernetes" ]]; then
 else
     echo  "No such cluster type:${TYPE}"
     exit -1
+fi
+
+
+if [[ ${WITH_ELBV2} == true ]]; then
+    bash -x plugins/elbv2/start.sh
+fi
+
+if [[ ${WITH_SLB} == true ]]; then
+    bash -x plugins/slb/start.sh
 fi
 
 
