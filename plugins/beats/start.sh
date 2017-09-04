@@ -2,14 +2,14 @@
 BASE_DIR=$(cd `dirname $0` && pwd -P)
 
 if type dpkg >/dev/null 2>&1; then
-    curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-5.5.1-amd64.deb
+    curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-amd64.deb
     sudo dpkg -i metricbeat-5.5.1-amd64.deb  &&  rm -f metricbeat-5.5.1-amd64.deb
-    curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-5.5.1-amd64.deb
+    curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.5.1-amd64.deb
     sudo dpkg -i filebeat-5.5.1-amd64.deb && rm -f  filebeat-5.5.1-amd64.deb
 elif type rpm >/dev/null 2>&1; then
-    curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-5.5.1-x86_64.rpm
+    curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-x86_64.rpm
     sudo rpm -vi metricbeat-5.5.1-x86_64.rpm  && rm -rf  metricbeat-5.5.1-x86_64.rpm
-    curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-5.4.0-x86_64.rpm
+    curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.4.0-x86_64.rpm
     rpm -vi filebeat-5.4.0-x86_64.rpm && rm -rf filebeat-5.4.0-x86_64.rpm
 else
     echo "no dpkg and no yum"
