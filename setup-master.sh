@@ -17,7 +17,7 @@ if [[ -z ${MASTER2_IP} ]]; then
 fi
 
 
-TYPE=mesos
+TYPE=swarm
 WITH_CADVISOR=false
 WITH_HDFS=false
 WITH_YARN=false
@@ -27,7 +27,7 @@ WITH_ZLB=false
 WITH_ELBV2=false
 WITH_SLB=false
 
-ARGS=`getopt -a -o T: -l type:,with-cadvisor,with-yarn,with-elk,with-ebk,with-hdfs,with-elbv2,with-slb,help -- "$@" `
+ARGS=`getopt -a -o T: -l type:,with-cadvisor,with-yarn,with-elk,with-ebk,with-hdfs,with-elbv2,with-slb,with-zlb,help -- "$@" `
 [ $? -ne 0 ] && usage
 #set -- "${ARGS}"
 eval set -- "${ARGS}"
