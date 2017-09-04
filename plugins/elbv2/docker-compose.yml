@@ -2,7 +2,7 @@ version: '2'
 
 services:
  watchdog:
-  image: registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-4982691
+  image: registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-eda6edf
   restart: always
   network_mode: host
   privileged: true
@@ -12,7 +12,7 @@ services:
   labels:
    - com.zanecloud.labels.system=true
   environment:
-   - "affinity:container!=*watchdog-elbv2*"
+   - "affinity:container!=*elbv2-watchdog*"
    - DOCKER_HOST=unix:///var/run/docker.sock
    - AWS_REGION=${AWS_REGION}
    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}

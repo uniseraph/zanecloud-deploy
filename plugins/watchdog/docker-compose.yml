@@ -12,6 +12,6 @@ services:
   labels:
    - com.github.omega.labels.system=true
   environment:
-   - "affinity:container!=*watchdog*"
+   - "affinity:container!=*watchdog-watchdog*"
    - DOCKER_HOST=unix:///var/run/docker.sock
   command: --log-level=debug -m docker-compose --ip ${LOCAL_IP} consul://127.0.0.1:8500
