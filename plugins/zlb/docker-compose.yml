@@ -2,10 +2,9 @@ version: '2'
 
 services:
  zlb:
-  image: registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb:0.1
+  image: registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb:1.0
   restart: always
   network_mode: host
   pid: host
   environment:
    - CONSUL_8500_TCP_ADDR=127.0.0.1:8500
-   - CONSUL_KV_PREFIX=myapp/domain.
