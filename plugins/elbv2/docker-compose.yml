@@ -8,7 +8,7 @@ services:
   privileged: true
   pid: host
   volumes:
-   - /var/run/docker.sock:/var/run/docker.sock
+   - /var/run:/var/run:ro
   labels:
    - com.zanecloud.labels.system=true
   environment:

@@ -8,9 +8,9 @@ services:
   privileged: true
   pid: host
   volumes:
-   - /var/run/docker.sock:/var/run/docker.sock
+   - /var/run:/var/run:ro
   labels:
-   - com.github.omega.labels.system=true
+   - com.zanecloud.labels.system=true
   environment:
    - "affinity:container!=*watchdog-watchdog*"
    - DOCKER_HOST=unix:///var/run/docker.sock
