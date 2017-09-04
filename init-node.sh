@@ -1,5 +1,29 @@
 #!/usr/bin/env bash
 
+
+if type apt-get >/dev/null 2>&1; then
+  echo 'using apt-get '
+  sudo systemctl stop docker
+#  sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
+#  sudo cp ./apt/sources.list /etc/apt/sources.list
+  sudo apt-get remove -y docker.engine
+  sudo systemctl unmask docker
+  sudo systemctl unmask docker.socket
+  sudo rm -rf /etc/init.d/docker
+  sudo rm -rf /etc/docker/key.json  #aws的镜像可能残留docker的key.json，会导致swarm node ID dup
+  sudo apt-get update && apt-get install -y git jq  bridge-utils tcpdump  haveged strace pstack htop  curl wget  iotop blktrace   dstat ltrace lsof
+
+elif type yum >/dev/nul 2>&1; then
+  echo 'using yum'
+  sudo yum install -y git jq bind-utils bridge-utils tcpdump  haveged strace  htop   curl wget    iotop blktrace perf  dstat ltrace lsof
+
+else
+  echo "no apt-get and no yum, exit"
+  exit
+fi
+
+
+
 echo "net.ipv4.etc.eth0.rp_filter=0" > /etc/sysctl.d/omega.conf
 
 sysctl -w net.ipv4.conf.eth0.rp_filter=0
@@ -25,6 +49,9 @@ sudo cp -f  tmp/* /usr/bin/
 
 
 sudo mkdir -p /etc/sysconfig
+
+systemctl unmask docker.service
+systemctl unmask docker.socket
 cp -f systemd/docker-1.11/docker.service /etc/systemd/system/
 cp -f systemd/docker-1.11/docker.socket /etc/systemd/system/
 

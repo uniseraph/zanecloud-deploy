@@ -23,8 +23,11 @@ WITH_HDFS=false
 WITH_YARN=false
 WITH_ELK=false
 WITH_EBK=false
+WITH_ZLB=false
+WITH_ELBV2=false
+WITH_SLB=false
 
-ARGS=`getopt -a -o T: -l type:,with-cadvisor,with-yarn,with-elk,with-ebk,with-hdfs,help -- "$@" `
+ARGS=`getopt -a -o T: -l type:,with-cadvisor,with-yarn,with-elk,with-ebk,with-hdfs,with-elbv2,with-slb,help -- "$@" `
 [ $? -ne 0 ] && usage
 #set -- "${ARGS}"
 eval set -- "${ARGS}"
@@ -46,9 +49,18 @@ do
                 ;;
         --with-ebk)
                 WITH_EBK=true
-                ;;
+                ;;          
         --with-yarn)
                 WITH_YARN=true
+                ;;
+        --with-zlb)
+                WITH_ZLB=true
+                ;;
+         --with-elbv2)
+                WITH_ELBV2=true
+                ;;
+        --with-slb)
+                WITH_SLB=true
                 ;;
         -h|--help)
                 usage
@@ -68,6 +80,9 @@ echo "WITH_YARN=${WITH_YARN}"
 echo "WITH_HDFS=${WITH_HDFS}"
 echo "WITH_ELK=${WITH_ELK}"
 echo "WITH_ELK=${WITH_EBK}"
+echo "WITH_ZLB=${WITH_ZLB}"
+echo "WITH_ELBV2=${WITH_ELBV2}"
+echo "WITH_SLB=${WITH_SLB}"
 
 
 if type apt-get >/dev/null 2>&1; then
@@ -76,12 +91,8 @@ if type apt-get >/dev/null 2>&1; then
   #sudo cp ./apt/source.list /etc/apt/source.list
   sudo apt-get update && apt-get install -y git jq  bridge-utils tcpdump  haveged strace pstack htop  curl wget  iotop blktrace   dstat ltrace lsof
   export LOCAL_IP=$(ifconfig eth0 | grep inet\ addr | awk '{print $2}' | awk -F: '{print $2}')
-
 elif type yum >/dev/nul 2>&1; then
-  echo 'using yum'
-  sudo yum install -y git jq bind-utils bridge-utils tcpdump  haveged strace pstack htop iostat vmstat curl wget sysdig pidstat mpstat iotop blktrace perf  dstat ltrace lsof
   export LOCAL_IP=$(ifconfig eth0 | grep inet | awk '{{print $2}}' )
-
 else
   echo "no apt-get and no yum, exit"
   exit
@@ -125,6 +136,15 @@ else
 fi
 
 
+if [[ ${WITH_ELBV2} == true ]]; then
+    bash -x plugins/elbv2/start.sh
+fi
+
+if [[ ${WITH_SLB} == true ]]; then
+    bash -x plugins/slb/start.sh
+fi
+
+
 if [[ ${WITH_ELK} == true ]]; then
     bash -x plugins/elk/start.sh logspout logstash  kibana elasticsearch
 fi
@@ -132,6 +152,10 @@ fi
 if [[ ${WITH_EBK} == true ]]; then
     bash -x plugins/elk/start.sh  kibana elasticsearch
     bash -x plugins/beats/start.sh
+fi
+
+if [[ ${WITH_ZLB} == true ]]; then
+    bash -x plugins/zlb/start.sh
 fi
 
 

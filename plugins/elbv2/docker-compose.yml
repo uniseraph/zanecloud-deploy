@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+ watchdog:
+  image: registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-4982691
+  restart: always
+  network_mode: host
+  privileged: true
+  pid: host
+  volumes:
+   - /var/run/docker.sock:/var/run/docker.sock
+  labels:
+   - com.zanecloud.labels.system=true
+  environment:
+   - "affinity:container!=*watchdog-elbv2*"
+   - DOCKER_HOST=unix:///var/run/docker.sock
+   - AWS_REGION=${AWS_REGION}
+   - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+   - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+   - AWS_INSTANCE_ID=${AWS_INSTANCE_ID}
+  command: --log-level=debug  elbv2://127.0.0.1:8500
