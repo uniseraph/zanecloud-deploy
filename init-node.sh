@@ -34,16 +34,18 @@ sysctl -p
 modprobe overlay
 cp -f zanecloud.conf /etc/modules-load.d/zanecloud.conf
 
-rm -rf tmp && mkdir -p tmp && cd tmp
-wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-1.11.1 -q  -O docker
-wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd -q
-wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd-ctr -q
-wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd-shim -q
-wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-runc -q
 
-cd ..
-sudo chmod +x tmp/*
-sudo cp -f  tmp/* /usr/bin/
+if [[ ! -d binary  ]] ; then
+    mkdir -p binary
+    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-1.11.1   -O docker -P binary
+    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd   -P binary
+    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd-ctr  -P binary
+    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd-shim  -P binary
+    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-runc  -P binary
+fi
+
+sudo chmod +x binary/*
+sudo cp -f  binary/* /usr/bin/
 
 
 sudo mkdir -p /etc/sysconfig
@@ -62,3 +64,6 @@ systemctl restart docker
 systemctl restart bootstrap
 systemctl enable bootstrap
 
+if [[  -f image.tar ]] ; then
+    docker -H unix:///var/run/bootstrap.sock load -i image.tar
+fi
