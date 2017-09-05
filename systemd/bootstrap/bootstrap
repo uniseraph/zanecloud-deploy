@@ -1,1 +1,1 @@
-BOOTSTRAP_OPTS='--registry-mirror=https://rmw18jx4.mirror.aliyuncs.com'
+BOOTSTRAP_OPTS='--registry-mirror=https://rmw18jx4.mirror.aliyuncs.com  --log-driver=json-file --log-opt max-file=10 --log-opt max-size=100m'
