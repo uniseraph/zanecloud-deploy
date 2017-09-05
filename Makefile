@@ -19,7 +19,7 @@ release:
 	cd release && tar zcvf zanecloud-deploy-${VERSION}-${GITCOMMIT}.tar.gz  zanecloud-deploy && cd ..
 
 
-release-no-deps:
+release-withdeps:
 	rm -rf release && mkdir -p release/zanecloud-deploy
 	cp -r plugins release/zanecloud-deploy
 	cp -r compose release/zanecloud-deploy
@@ -27,15 +27,15 @@ release-no-deps:
 	cp *.conf release/zanecloud-deploy
 	cp *.sh release/zanecloud-deploy
 	mkdir -p release/zanecloud-deploy/binary && \
-	    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-1.11.1   -O docker  -P release/zanecloud-deploy/binary && \
+	    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-1.11.1   -O release/zanecloud-deploy/binary/docker   && \
         wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd  -P release/zanecloud-deploy/binary  && \
         wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd-ctr  -P release/zanecloud-deploy/binary  && \
         wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd-shim   -P release/zanecloud-deploy/binary  && \
         wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-runc  -P release/zanecloud-deploy/binary
 	docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-eda6edf && \
-	docker pull swarm:1.2.6 && \
-	docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/tunneld:0.1.0-81e006c && \
-	docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/metad:0.1.0 && \
+	  docker pull swarm:1.2.6 && \
+	  docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/tunneld:0.1.0-81e006c && \
+	  docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/metad:0.1.0 && \
     docker pull registry.cn-hangzhou.aliyuncs.com/omega-reg/flannel:v0.7.1-amd64 && \
     docker pull registry.cn-hangzhou.aliyuncs.com/omega-reg/etcd:3.1.7 && \
     docker pull andyshinn/dnsmasq:2.75 && \
@@ -49,8 +49,8 @@ release-no-deps:
             registry.cn-hangzhou.aliyuncs.com/omega-reg/etcd:3.1.7 \
             andyshinn/dnsmasq:2.75  \
             consul:0.7.5 \
-            docker/compose:1.9.0 
-	cd release && tar zcvf zanecloud-deploy-no-deps-${VERSION}-${GITCOMMIT}.tar.gz  zanecloud-deploy && cd ..
+            docker/compose:1.9.0
+	cd release && tar zcvf zanecloud-deploy-withdeps-${VERSION}-${GITCOMMIT}.tar.gz  zanecloud-deploy && cd ..
 
 
 .PHONY: release
