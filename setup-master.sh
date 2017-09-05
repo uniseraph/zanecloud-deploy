@@ -1,18 +1,8 @@
 #!/usr/bin/env bash
 
 
-if [[ -z ${MASTER0_IP} ]]; then
-    echo "Please export MASTER0_IP in your env"
-    exit 1
-fi
-
-if [[ -z ${MASTER1_IP} ]]; then
-    echo "Please export MASTER1_IP in your env"
-    exit 1
-fi
-
-if [[ -z ${MASTER2_IP} ]]; then
-    echo "Please export MASTER2_IP in your env"
+if [[ -z ${MASTER_IP} ]]; then
+    echo "Please export MASTER_IP in your env"
     exit 1
 fi
 
@@ -105,13 +95,10 @@ if [[ ${TYPE} == "mesos" ]]; then
 
     bash -x start-bootstrap.sh  etcd zookeeper dnsmasq flanneld consul-server  && \
     bash -x start-docker.sh
-
     bash -x start-mesos.sh master slave
+    bash -x start-mesos.sh marathon mesos-consul
+    echo "marathon starting success ......, Please access http://${LOCAL_IP}:8080"
 
-    if [[ ${LOCAL_IP} == ${MASTER0_IP} ]]; then
-        bash -x start-mesos.sh marathon mesos-consul
-        echo "marathon starting success ......, Please access http://${LOCAL_IP}:8080"
-    fi
 elif [[ ${TYPE} == "swarm" ]]; then
     bash -x start-bootstrap.sh  etcd  dnsmasq flanneld consul-server  && \
     bash -x start-docker.sh
@@ -126,9 +113,9 @@ elif [[ ${TYPE} == "kubernetes" ]]; then
     bash -x start-bootstrap.sh  etcd  dnsmasq flanneld consul-server  && \
     bash -x start-docker.sh
 
-  #  bash -x plugins/kubernetes/init-kubernetes.sh
-  #  bash -x plugins/kubernetes/start-master.sh
-  #  bash -x plugins/kubernetes/start-worker.sh
+    bash -x plugins/kubernetes/init-kubernetes.sh
+    bash -x plugins/kubernetes/start-master.sh
+    bash -x plugins/kubernetes/start-worker.sh
 
 else
     echo  "No such cluster type:${TYPE}"
