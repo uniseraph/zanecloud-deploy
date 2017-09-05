@@ -45,7 +45,7 @@ release-withdeps:
     docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/kibana:5.4.0 && \
     docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/elasticsearch:5.4.0 && \
     docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/logstash:5.4.0
-    docker save -o release/zanecloud-deploy/image.tar registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-eda6edf  \
+	docker save -o release/zanecloud-deploy/image.tar registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-eda6edf  \
             swarm:1.2.6  \
             registry.cn-hangzhou.aliyuncs.com/zanecloud/tunneld:0.1.0-81e006c  \
             registry.cn-hangzhou.aliyuncs.com/zanecloud/metad:0.1.0  \
