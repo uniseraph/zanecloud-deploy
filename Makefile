@@ -41,6 +41,10 @@ release-withdeps:
     docker pull andyshinn/dnsmasq:2.75 && \
     docker pull consul:0.7.5 && \
     docker pull docker/compose:1.9.0 && \
+    docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb:1.0 && \
+    docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/kibana:5.4.0 && \
+    docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/elasticsearch:5.4.0 && \
+    docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/logstash:5.4.0
     docker save -o release/zanecloud-deploy/image.tar registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-eda6edf  \
             swarm:1.2.6  \
             registry.cn-hangzhou.aliyuncs.com/zanecloud/tunneld:0.1.0-81e006c  \
@@ -49,7 +53,11 @@ release-withdeps:
             registry.cn-hangzhou.aliyuncs.com/omega-reg/etcd:3.1.7 \
             andyshinn/dnsmasq:2.75  \
             consul:0.7.5 \
-            docker/compose:1.9.0
+            docker/compose:1.9.0 \
+            registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb:1.0 \
+            registry.cn-hangzhou.aliyuncs.com/zanecloud/kibana:5.4.0 \
+            registry.cn-hangzhou.aliyuncs.com/zanecloud/elasticsearch:5.4.0 \
+            registry.cn-hangzhou.aliyuncs.com/zanecloud/logstash:5.4.0
 	cd release && tar zcvf zanecloud-deploy-withdeps-${VERSION}-${GITCOMMIT}.tar.gz  zanecloud-deploy && cd ..
 
 
