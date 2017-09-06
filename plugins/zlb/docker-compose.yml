@@ -29,4 +29,4 @@ services:
   restart: always
   network_mode: host
   pid: host
-  command: --log-level debug  --consul-addr 127.0.0.1:8500 --addr 127.0.0.1:6300  start 
+  command: --log-level debug  start --consul-addr 127.0.0.1:8500 --addr 127.0.0.1:6300  
