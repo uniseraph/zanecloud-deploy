@@ -155,7 +155,7 @@ if [[ ${WITH_EBK} == true ]]; then
 fi
 
 if [[ ${WITH_ZLB} == true ]]; then
-    bash -x plugins/zlb/start.sh watchdog zlb
+    bash -x plugins/zlb/start.sh watchdog zlb zlb-api
 fi
 
 
