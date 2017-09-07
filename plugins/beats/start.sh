@@ -2,9 +2,15 @@
 BASE_DIR=$(cd `dirname $0` && pwd -P)
 
 if type dpkg >/dev/null 2>&1; then
-    curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-amd64.deb
+
+    if [[  ! -f binary/metricbeat-5.5.1-amd64.deb ]] ; then
+        curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-amd64.deb
+    fi
     sudo dpkg -i metricbeat-5.5.1-amd64.deb  &&  rm -f metricbeat-5.5.1-amd64.deb
-    curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.5.1-amd64.deb
+
+    if [[  ! -f binary/filebeat-5.5.1-amd64.deb ]] ; then
+        curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.5.1-amd64.deb
+    fi
     sudo dpkg -i filebeat-5.5.1-amd64.deb && rm -f  filebeat-5.5.1-amd64.deb
 elif type rpm >/dev/null 2>&1; then
 
