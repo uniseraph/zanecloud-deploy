@@ -1,27 +1,28 @@
 #!/usr/bin/env bash
 BASE_DIR=$(cd `dirname $0` && pwd -P)
 
+mkdir -p binary
 if type dpkg >/dev/null 2>&1; then
 
     if [[  ! -f binary/metricbeat-5.5.1-amd64.deb ]] ; then
-        curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-amd64.deb
+        wget  http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-amd64.deb -P bingetary
     fi
-    sudo dpkg -i metricbeat-5.5.1-amd64.deb  &&  rm -f metricbeat-5.5.1-amd64.deb
+    sudo dpkg -i binary/metricbeat-5.5.1-amd64.deb
 
     if [[  ! -f binary/filebeat-5.5.1-amd64.deb ]] ; then
-        curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.5.1-amd64.deb
+        wget  http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.5.1-amd64.deb  -P binary
     fi
-    sudo dpkg -i filebeat-5.5.1-amd64.deb && rm -f  filebeat-5.5.1-amd64.deb
+    sudo dpkg -i binary/filebeat-5.5.1-amd64.deb
 elif type rpm >/dev/null 2>&1; then
 
     if [[ ! -f binary/metricbeat-5.5.1-x86_64.rpm  ]] ; then
-        curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-x86_64.rpm
+        wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-x86_64.rpm -P binary
     fi
-    sudo rpm -vi metricbeat-5.5.1-x86_64.rpm  && rm -rf  metricbeat-5.5.1-x86_64.rpm
+    sudo rpm -vi binary/metricbeat-5.5.1-x86_64.rpm
     if [[ ! -f binary/filebeat-5.4.0-x86_64.rpm ]] ; then
-        curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.4.0-x86_64.rpm
+        wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.4.0-x86_64.rpm -P binary
     fi
-    rpm -vi filebeat-5.4.0-x86_64.rpm && rm -rf filebeat-5.4.0-x86_64.rpm
+    rpm -vi binary/filebeat-5.4.0-x86_64.rpm
 else
     echo "no dpkg and no yum"
     exit
