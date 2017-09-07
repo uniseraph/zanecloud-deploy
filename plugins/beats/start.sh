@@ -7,9 +7,14 @@ if type dpkg >/dev/null 2>&1; then
     curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.5.1-amd64.deb
     sudo dpkg -i filebeat-5.5.1-amd64.deb && rm -f  filebeat-5.5.1-amd64.deb
 elif type rpm >/dev/null 2>&1; then
-    curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-x86_64.rpm
+
+    if [[ ! -f binary/metricbeat-5.5.1-x86_64.rpm  ]] ; then
+        curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-x86_64.rpm
+    fi
     sudo rpm -vi metricbeat-5.5.1-x86_64.rpm  && rm -rf  metricbeat-5.5.1-x86_64.rpm
-    curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.4.0-x86_64.rpm
+    if [[ ! -f binary/filebeat-5.4.0-x86_64.rpm ]] ; then
+        curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.4.0-x86_64.rpm
+    fi
     rpm -vi filebeat-5.4.0-x86_64.rpm && rm -rf filebeat-5.4.0-x86_64.rpm
 else
     echo "no dpkg and no yum"
