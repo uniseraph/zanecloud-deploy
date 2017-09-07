@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+MAIN_DEV=${MAIN_DEV:-"eth0"}
 
 if type apt-get >/dev/null 2>&1; then
   echo 'using apt-get '

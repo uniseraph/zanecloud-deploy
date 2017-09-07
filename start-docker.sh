@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+MAIN_DEV=${MAIN_DEV:-"eth0"}
+
+
 SECONDS=0
 while [[ ! -f /run/flannel/subnet.env ]]; do
   ((SECONDS++))
