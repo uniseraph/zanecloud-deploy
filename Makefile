@@ -15,6 +15,7 @@ release:
 	cp -r compose release/zanecloud-deploy
 	cp -r systemd release/zanecloud-deploy
 	cp *.conf release/zanecloud-deploy
+	cp *.conf.template release/zanecloud-deploy
 	cp *.sh release/zanecloud-deploy
 	cd release && tar zcvf zanecloud-deploy-${VERSION}-${GITCOMMIT}.tar.gz  zanecloud-deploy && cd ..
 
@@ -25,6 +26,7 @@ release-withdeps:
 	cp -r compose release/zanecloud-deploy
 	cp -r systemd release/zanecloud-deploy
 	cp *.conf release/zanecloud-deploy
+	cp *.conf.template release/zanecloud-deploy
 	cp *.sh release/zanecloud-deploy
 	mkdir -p release/zanecloud-deploy/binary && \
 	    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-1.11.1   -O release/zanecloud-deploy/binary/docker   && \
@@ -33,7 +35,7 @@ release-withdeps:
         wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd-shim   -P release/zanecloud-deploy/binary  && \
         wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-runc  -P release/zanecloud-deploy/binary && \
         wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-x86_64.rpm  -P release/zanecloud-deploy/binary && \
-        wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.4.0-x86_64.rpm  -P release/zanecloud-deploy/binary 
+        wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.4.0-x86_64.rpm  -P release/zanecloud-deploy/binary
 	docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-eda6edf && \
 	  docker pull swarm:1.2.6 && \
 	  docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/tunneld:0.1.0-81e006c && \
