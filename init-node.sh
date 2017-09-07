@@ -22,12 +22,16 @@ fi
 
 
 
-echo "net.ipv4.etc.eth0.rp_filter=0" > /etc/sysctl.d/omega.conf
+echo "net.ipv4.etc.${MAIN_DEV}.rp_filter=0" > /etc/sysctl.d/omega.conf
 
-sysctl -w net.ipv4.conf.eth0.rp_filter=0
+sysctl -w net.ipv4.conf.${MAIN_DEV}.rp_filter=0
 sysctl -w vm.max_map_count=262144
 
-cp sysctl.conf /etc/sysctl.conf
+cp -f sysctl.conf.template sysctl.conf
+
+sed -i -e "s#eth0#${MAIN_DEV}#g" sysctl.conf
+
+cp -f sysctl.conf /etc/sysctl.conf
 sysctl -p
 
 
@@ -37,7 +41,7 @@ cp -f zanecloud.conf /etc/modules-load.d/zanecloud.conf
 
 if [[ ! -d binary  ]] ; then
     mkdir -p binary
-    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-1.11.1   -O binary/docker 
+    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-1.11.1   -O binary/docker
     wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd   -P binary
     wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd-ctr  -P binary
     wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd-shim  -P binary

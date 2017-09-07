@@ -20,7 +20,7 @@ echo "DOCKER_OPTS=\"  --dns ${LOCAL_IP}  --ip-masq=${FLANNEL_IPMASQ}  --bip=${FL
 
 
 #aws／aliyun都需要，否则容器无法ping宿主机
-iptables -t nat  -A POSTROUTING -o eth0 -s ${FLANNEL_SUBNET}  -j MASQUERADE
+iptables -t nat  -A POSTROUTING -o ${MAIN_DEV} -s ${FLANNEL_SUBNET}  -j MASQUERADE
 
 systemctl restart docker
 systemctl enable docker
