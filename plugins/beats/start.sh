@@ -35,7 +35,7 @@ sed -i -e "s#master2#${MASTER2_IP}#g" /etc/filebeat/filebeat.yml
 systemctl restart filebeat
 systemctl enable filebeat
 systemctl status filebeat
-/usr/share/filebeat/scripts/import_dashboards -es http://${MASTER0_IP}:9200 -user elastic
+/usr/share/filebeat/scripts/import_dashboards -es http://${MASTER0_IP}:9200 -user elastic -url http://zanecloud-others.oss-cn-beijing.aliyuncs.com/beats-dashboards-5.5.1.zip
 
 
 
@@ -46,4 +46,4 @@ sed -i -e "s#master2#${MASTER2_IP}#g" /etc/metricbeat/metricbeat.yml
 systemctl restart metricbeat
 systemctl enable metricbeat
 systemctl status metricbeat
-/usr/share/metricbeat/scripts/import_dashboards -es http://${MASTER0_IP}:9200 -user elastic
+/usr/share/metricbeat/scripts/import_dashboards -es http://${MASTER0_IP}:9200 -user elastic -url http://zanecloud-others.oss-cn-beijing.aliyuncs.com/beats-dashboards-5.5.1.zip
