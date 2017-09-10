@@ -92,7 +92,7 @@ if type apt-get >/dev/null 2>&1; then
   echo 'using apt-get '
   #sudo mv /etc/apt/source.list /etc/apt/source.list.bak
   #sudo cp ./apt/source.list /etc/apt/source.list
-  sudo apt-get update && apt-get install -y git jq  bridge-utils tcpdump  haveged strace pstack htop  curl wget  iotop blktrace   dstat ltrace lsof
+  #sudo apt-get update && apt-get install -y git jq  bridge-utils tcpdump  haveged strace pstack htop  curl wget  iotop blktrace   dstat ltrace lsof
   export LOCAL_IP=$(ifconfig ${MAIN_DEV} | grep inet\ addr | awk '{print $2}' | awk -F: '{print $2}')
 elif type yum >/dev/nul 2>&1; then
   export LOCAL_IP=$(ifconfig ${MAIN_DEV} | grep inet | awk '{{print $2}}' )
