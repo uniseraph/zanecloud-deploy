@@ -25,7 +25,7 @@ services:
    - DOCKER_HOST=unix:///var/run/docker.sock
   command: --log-level=debug  -m docker-compose --ip=${LOCAL_IP} zlb://127.0.0.1:8500
  zlb-api:
-  image:registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb-api:0.1.0-718980e
+  image: registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb-api:0.1.0-718980e
   restart: always
   network_mode: host
   pid: host
