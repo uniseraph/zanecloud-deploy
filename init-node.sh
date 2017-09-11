@@ -14,7 +14,7 @@ if type apt-get >/dev/null 2>&1; then
 
 elif type yum >/dev/nul 2>&1; then
   echo 'using yum'
-  sudo yum install -y git jq bind-utils bridge-utils tcpdump  haveged strace  htop   curl wget    iotop blktrace perf  dstat ltrace lsof
+  sudo yum update && yum  install -y git jq bind-utils bridge-utils tcpdump  haveged strace  htop   curl wget    iotop blktrace perf  dstat ltrace lsof
 
 else
   echo "no apt-get and no yum, exit"

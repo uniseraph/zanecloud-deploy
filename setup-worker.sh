@@ -1,29 +1,13 @@
 #!/usr/bin/env bash
 
 
-if [[ -z ${MASTER0_IP} ]]; then
-    echo "Please export MASTER0_IP in your env"
+if [[ -z ${MASTER_IP} ]]; then
+    echo "Please export MASTER_IP in your env"
     exit 1
 fi
 
-if [[ -z ${MASTER1_IP} ]]; then
-    echo "Please export MASTER1_IP in your env"
-    exit 1
-fi
 
-if [[ -z ${MASTER2_IP} ]]; then
-    echo "Please export MASTER2_IP in your env"
-    exit 1
-fi
-
-if [[ -z ${PROVIDER} ]]; then
-    echo "using default provider:aliyun"
-    export PROVIDER="aliyun"
-fi
-
-
-
-TYPE=mesos
+TYPE=swarm
 WITH_CADVISOR=false
 WITH_HDFS=false
 WITH_YARN=false
@@ -93,12 +77,12 @@ echo "WITH_ZLB=${WITH_ZLB}"
 
 if type apt-get >/dev/null 2>&1; then
   echo 'using apt-get '
-  sudo apt-get update && apt-get install -y jq  bridge-utils tcpdump  haveged strace pstack htop  curl wget  iotop blktrace   dstat ltrace lsof
+  #sudo apt-get update && apt-get install -y jq  bridge-utils tcpdump  haveged strace pstack htop  curl wget  iotop blktrace   dstat ltrace lsof
   export LOCAL_IP=$(ifconfig ${MAIN_DEV} | grep inet\ addr | awk '{print $2}' | awk -F: '{print $2}')
 
 elif type yum >/dev/nul 2>&1; then
   echo 'using yum'
-  sudo yum install -y  jq bind-utils bridge-utils tcpdump  haveged strace pstack htop iostat vmstat curl wget sysdig pidstat mpstat iotop blktrace perf  dstat ltrace lsof
+  #sudo yum install -y  jq bind-utils bridge-utils tcpdump  haveged strace pstack htop iostat vmstat curl wget sysdig pidstat mpstat iotop blktrace perf  dstat ltrace lsof
 
   export LOCAL_IP=$(ifconfig ${MAIN_DEV} | grep inet | awk '{{print $2}}' )
 
@@ -109,15 +93,15 @@ fi
 
 
 bash -x init-node.sh  && \
-    bash -x start-bootstrap.sh  dnsmasq flanneld consul-agent  && \
-    bash -x start-docker.sh
+bash -x start-bootstrap.sh  dnsmasq flanneld consul-agent  && \
+bash -x start-docker.sh
 
 
 
 if [[ ${TYPE} == "mesos" ]]; then
     bash -x start-mesos.sh  slave
 elif [[ ${TYPE} == "swarm" ]]; then
-    export DIS_URL="consul://127.0.0.1:8500/default"
+   # export DIS_URL="consul://127.0.0.1:8500/default"
 
     bash -x plugins/swarm/start.sh agent
     bash -x plugins/watchdog/start.sh
