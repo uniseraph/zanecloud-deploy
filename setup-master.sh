@@ -1,20 +1,6 @@
 #!/usr/bin/env bash
 
 
-if [[ -z ${MASTER0_IP} ]]; then
-    echo "Please export MASTER0_IP in your env"
-    exit 1
-fi
-
-if [[ -z ${MASTER1_IP} ]]; then
-    echo "Please export MASTER1_IP in your env"
-    exit 1
-fi
-
-if [[ -z ${MASTER2_IP} ]]; then
-    echo "Please export MASTER2_IP in your env"
-    exit 1
-fi
 
 MAIN_DEV=${MAIN_DEV:-"eth0"}
 
@@ -52,7 +38,7 @@ do
                 ;;
         --with-ebk)
                 WITH_EBK=true
-                ;;          
+                ;;
         --with-yarn)
                 WITH_YARN=true
                 ;;
@@ -90,9 +76,6 @@ echo "WITH_SLB=${WITH_SLB}"
 
 if type apt-get >/dev/null 2>&1; then
   echo 'using apt-get '
-  #sudo mv /etc/apt/source.list /etc/apt/source.list.bak
-  #sudo cp ./apt/source.list /etc/apt/source.list
-  #sudo apt-get update && apt-get install -y git jq  bridge-utils tcpdump  haveged strace pstack htop  curl wget  iotop blktrace   dstat ltrace lsof
   export LOCAL_IP=$(ifconfig ${MAIN_DEV} | grep inet\ addr | awk '{print $2}' | awk -F: '{print $2}')
 elif type yum >/dev/nul 2>&1; then
   export LOCAL_IP=$(ifconfig ${MAIN_DEV} | grep inet | awk '{{print $2}}' )
@@ -101,6 +84,7 @@ else
   exit
 fi
 
+MASTER_IP=${MASTER_IP:-$LOCAL_IP}
 
 bash -x init-node.sh
 
