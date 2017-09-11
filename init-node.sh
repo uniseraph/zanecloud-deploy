@@ -69,6 +69,8 @@ systemctl restart docker
 systemctl restart bootstrap
 systemctl enable bootstrap
 
+
 if [[  -f image.tar ]] ; then
     docker -H unix:///var/run/bootstrap.sock load -i image.tar
 fi
+
