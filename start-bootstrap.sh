@@ -6,6 +6,7 @@ ZK_URL=${ZK_URL:-"zk://${MASTER_IP}:2181"}
 BOOTSTRAP_EXPECT=${BOOTSTRAP_EXPECT:-1}
 FLANNEL_NETWORK=${FLANNEL_NETWORK:-"192.168.0.0/16"}
 
+MASTER_IP=${MASTER_IP:-$LOCAL_IP}
 if [[ ! -f /etc/dnsmasq.resolv.conf ]]; then
     cp -f /etc/resolv.conf /etc/dnsmasq.resolv.conf
 fi

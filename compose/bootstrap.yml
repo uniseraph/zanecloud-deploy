@@ -4,7 +4,7 @@ services:
   image: zookeeper:3.4.10
   network_mode: host
   restart: always
-  environment:
+  #environment:
     #    ZOO_MY_ID: ${ZOO_MY_ID}
     #ZOO_SERVERS: server.1=${MASTER0_IP}:2888:3888 server.2=${MASTER1_IP}:2888:3888 server.3=${MASTER2_IP}:2888:3888
   volumes:
@@ -46,7 +46,7 @@ services:
    image: consul:0.7.5
    network_mode: host
    restart: always
-   command: consul agent -server --data-dir=/consul/data -bootstrap-expect=${BOOTSTRAP_EXPECT} -bind=${LOCAL_IP} -ui -client=0.0.0.0 -advertise=${LOCAL_IP} -join=${MASTER_IP}
+   command: consul agent -server --data-dir=/consul/data  -bind=${LOCAL_IP} -ui -client=0.0.0.0 -advertise=${LOCAL_IP} -join=${MASTER_IP}
    volumes:
      - consul-server-data:/consul/data
  consul-agent:
