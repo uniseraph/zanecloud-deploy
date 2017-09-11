@@ -6,6 +6,7 @@ if [[ -z ${MASTER_IP} ]]; then
     exit 1
 fi
 
+MAIN_DEV=${MAIN_DEV:-"eth0"}
 
 TYPE=swarm
 WITH_CADVISOR=false
