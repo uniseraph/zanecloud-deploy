@@ -16,6 +16,9 @@ if [[ -z ${MASTER2_IP} ]]; then
     exit 1
 fi
 
+MAIN_DEV=${MAIN_DEV:-"eth0"}
+
+
 
 TYPE=swarm
 WITH_CADVISOR=false
@@ -89,10 +92,10 @@ if type apt-get >/dev/null 2>&1; then
   echo 'using apt-get '
   #sudo mv /etc/apt/source.list /etc/apt/source.list.bak
   #sudo cp ./apt/source.list /etc/apt/source.list
-  sudo apt-get update && apt-get install -y git jq  bridge-utils tcpdump  haveged strace pstack htop  curl wget  iotop blktrace   dstat ltrace lsof
-  export LOCAL_IP=$(ifconfig eth0 | grep inet\ addr | awk '{print $2}' | awk -F: '{print $2}')
+  #sudo apt-get update && apt-get install -y git jq  bridge-utils tcpdump  haveged strace pstack htop  curl wget  iotop blktrace   dstat ltrace lsof
+  export LOCAL_IP=$(ifconfig ${MAIN_DEV} | grep inet\ addr | awk '{print $2}' | awk -F: '{print $2}')
 elif type yum >/dev/nul 2>&1; then
-  export LOCAL_IP=$(ifconfig eth0 | grep inet | awk '{{print $2}}' )
+  export LOCAL_IP=$(ifconfig ${MAIN_DEV} | grep inet | awk '{{print $2}}' )
 else
   echo "no apt-get and no yum, exit"
   exit
@@ -155,7 +158,7 @@ if [[ ${WITH_EBK} == true ]]; then
 fi
 
 if [[ ${WITH_ZLB} == true ]]; then
-    bash -x plugins/zlb/start.sh watchdog zlb
+    bash -x plugins/zlb/start.sh watchdog zlb zlb-api
 fi
 
 

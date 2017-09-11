@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
+MAIN_DEV=${MAIN_DEV:-"eth0"}
 
 if type apt-get >/dev/null 2>&1; then
   echo 'using apt-get '
   sudo systemctl stop docker
-#  sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
-#  sudo cp ./apt/sources.list /etc/apt/sources.list
   sudo apt-get remove -y docker.engine
   sudo systemctl unmask docker
   sudo systemctl unmask docker.socket
@@ -24,28 +23,31 @@ fi
 
 
 
-echo "net.ipv4.etc.eth0.rp_filter=0" > /etc/sysctl.d/omega.conf
+echo "net.ipv4.etc.${MAIN_DEV}.rp_filter=0" > /etc/sysctl.d/omega.conf
 
-sysctl -w net.ipv4.conf.eth0.rp_filter=0
+sysctl -w net.ipv4.conf.${MAIN_DEV}.rp_filter=0
 sysctl -w vm.max_map_count=262144
 
-cp sysctl.conf /etc/sysctl.conf
+cp -f sysctl.conf.template sysctl.conf
+
+sed -i -e "s#eth0#${MAIN_DEV}#g" sysctl.conf
+
+cp -f sysctl.conf /etc/sysctl.conf
 sysctl -p
 
 
 modprobe overlay
 cp -f zanecloud.conf /etc/modules-load.d/zanecloud.conf
 
+
 if [[ ! -d binary  ]] ; then
-      mkdir -p binary
-      wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-1.11.1   -O docker -P binary
-      wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd   -P binary
-      wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd-ctr  -P binary
-      wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd-shim  -P binary
-      wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-runc  -P binary
+    mkdir -p binary
+    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-1.11.1   -O binary/docker
+    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd   -P binary
+    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd-ctr  -P binary
+    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd-shim  -P binary
+    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-runc  -P binary
 fi
-
-
 
 sudo chmod +x binary/*
 sudo cp -f  binary/* /usr/bin/
@@ -69,5 +71,6 @@ systemctl enable bootstrap
 
 
 if [[  -f image.tar ]] ; then
-      docker -H unix:///var/run/bootstrap.sock load -i image.tar
+    docker -H unix:///var/run/bootstrap.sock load -i image.tar
 fi
+

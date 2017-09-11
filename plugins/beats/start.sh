@@ -1,16 +1,28 @@
 #!/usr/bin/env bash
 BASE_DIR=$(cd `dirname $0` && pwd -P)
 
+mkdir -p binary
 if type dpkg >/dev/null 2>&1; then
-    curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-amd64.deb
-    sudo dpkg -i metricbeat-5.5.1-amd64.deb  &&  rm -f metricbeat-5.5.1-amd64.deb
-    curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.5.1-amd64.deb
-    sudo dpkg -i filebeat-5.5.1-amd64.deb && rm -f  filebeat-5.5.1-amd64.deb
+
+    if [[  ! -f binary/metricbeat-5.5.1-amd64.deb ]] ; then
+        wget  http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-amd64.deb -P bingetary
+    fi
+    sudo dpkg -i binary/metricbeat-5.5.1-amd64.deb
+
+    if [[  ! -f binary/filebeat-5.5.1-amd64.deb ]] ; then
+        wget  http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.5.1-amd64.deb  -P binary
+    fi
+    sudo dpkg -i binary/filebeat-5.5.1-amd64.deb
 elif type rpm >/dev/null 2>&1; then
-    curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-x86_64.rpm
-    sudo rpm -vi metricbeat-5.5.1-x86_64.rpm  && rm -rf  metricbeat-5.5.1-x86_64.rpm
-    curl -L -O http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.4.0-x86_64.rpm
-    rpm -vi filebeat-5.4.0-x86_64.rpm && rm -rf filebeat-5.4.0-x86_64.rpm
+
+    if [[ ! -f binary/metricbeat-5.5.1-x86_64.rpm  ]] ; then
+        wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-x86_64.rpm -P binary
+    fi
+    sudo rpm -vi binary/metricbeat-5.5.1-x86_64.rpm
+    if [[ ! -f binary/filebeat-5.4.0-x86_64.rpm ]] ; then
+        wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.4.0-x86_64.rpm -P binary
+    fi
+    rpm -vi binary/filebeat-5.4.0-x86_64.rpm
 else
     echo "no dpkg and no yum"
     exit
@@ -23,7 +35,7 @@ sed -i -e "s#master2#${MASTER2_IP}#g" /etc/filebeat/filebeat.yml
 systemctl restart filebeat
 systemctl enable filebeat
 systemctl status filebeat
-/usr/share/filebeat/scripts/import_dashboards -es http://${MASTER0_IP}:9200 -user elastic
+/usr/share/filebeat/scripts/import_dashboards -es http://${MASTER0_IP}:9200 -user elastic -url http://zanecloud-others.oss-cn-beijing.aliyuncs.com/beats-dashboards-5.5.1.zip
 
 
 
@@ -34,4 +46,4 @@ sed -i -e "s#master2#${MASTER2_IP}#g" /etc/metricbeat/metricbeat.yml
 systemctl restart metricbeat
 systemctl enable metricbeat
 systemctl status metricbeat
-/usr/share/metricbeat/scripts/import_dashboards -es http://${MASTER0_IP}:9200 -user elastic
+/usr/share/metricbeat/scripts/import_dashboards -es http://${MASTER0_IP}:9200 -user elastic -url http://zanecloud-others.oss-cn-beijing.aliyuncs.com/beats-dashboards-5.5.1.zip

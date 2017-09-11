@@ -56,10 +56,10 @@ services:
     restart: always
  #   environment:
  #     - LS_JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom"
-    extra_hosts:
-     - "es0:${MASTER0_IP}"
-     - "es1:${MASTER1_IP}"
-     - "es2:${MASTER2_IP}"
+ #   extra_hosts:
+ #    - "es0:${MASTER0_IP}"
+ #    - "es1:${MASTER1_IP}"
+ #    - "es2:${MASTER2_IP}"
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
     volumes:

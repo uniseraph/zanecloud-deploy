@@ -2,13 +2,14 @@ version: '2'
 
 services:
  zlb:
-  image: registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb:1.0
+  image: registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb:1.0.1-3120dd1
   restart: always
   network_mode: host
   pid: host
   environment:
    - CONSUL_8500_TCP_ADDR=127.0.0.1:8500
    - "affinity:container!=*zlb-zlb*"
+   - DOCKER_HOST=unix:///var/run/docker.sock
  watchdog:
   image: registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-eda6edf
   restart: always
@@ -23,3 +24,9 @@ services:
    - "affinity:container!=*zlb-watchdog*"
    - DOCKER_HOST=unix:///var/run/docker.sock
   command: --log-level=debug  -m docker-compose --ip=${LOCAL_IP} zlb://127.0.0.1:8500
+ zlb-api:
+  image: registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb-api:0.1.0-718980e
+  restart: always
+  network_mode: host
+  pid: host
+  command: --log-level debug  start --consul-addr 127.0.0.1:8500 --addr 127.0.0.1:6300  
