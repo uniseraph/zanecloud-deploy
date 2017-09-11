@@ -31,10 +31,10 @@ docker -H unix:///var/run/bootstrap.sock run --net=host -ti --rm -v $(pwd):$(pwd
         up -d $*
 
 
-
+if [[  ${LOCAL_IP} == ${MASTER_IP}  ]] ; then
 
   SECONDS=0
-  while [[ $(curl -fsSL http://${LOCAL_IP}:2379/health 2>&1 1>/dev/null; echo $?) != 0 ]]; do
+  while [[ $(curl -fsSL http://${MASTER_IP}:2379/health 2>&1 1>/dev/null; echo $?) != 0 ]]; do
     ((SECONDS++))
     if [[ ${SECONDS} == 99 ]]; then
       echo "etcd failed to start. Exiting..."
@@ -45,3 +45,6 @@ docker -H unix:///var/run/bootstrap.sock run --net=host -ti --rm -v $(pwd):$(pwd
 
   curl -sSL http://${LOCAL_IP}:2379/v2/keys/coreos.com/network/config -XPUT \
       -d value="{ \"Network\": \"${FLANNEL_NETWORK}\",  \"SubnetLen\":25    ,   \"Backend\": {\"Type\": \"vxlan\"}}"
+
+
+fi 
