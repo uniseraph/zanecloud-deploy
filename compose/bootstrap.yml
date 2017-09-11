@@ -54,7 +54,7 @@ services:
    image: consul:0.7.5
    network_mode: host
    restart: always
-   command:  consul agent -data-dir=/consul/data -join=${MASTER_IP}
+   command:  consul agent -data-dir=/consul/data -join=${MASTER_IP} -advertise=${LOCAL_IP}
    volumes:
       - consul-agent-data:/consul/data
 volumes:
