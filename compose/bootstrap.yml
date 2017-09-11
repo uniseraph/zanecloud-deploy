@@ -47,7 +47,7 @@ services:
    image: consul:0.7.5
    network_mode: host
    restart: always
-   command:  --data-dir=/consul/data   -ui -client=0.0.0.0 
+   command:  agent -dev --data-dir=/consul/data   -ui -client=0.0.0.0 
    volumes:
      - consul-server-data:/consul/data
  consul-agent:
