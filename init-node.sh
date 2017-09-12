@@ -42,11 +42,11 @@ cp -f zanecloud.conf /etc/modules-load.d/zanecloud.conf
 
 if [[ ! -d binary  ]] ; then
     mkdir -p binary
-    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/7605338/docker-1.11.1   -O binary/docker
-    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/7605338/docker-containerd   -P binary
-    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/7605338/docker-containerd-ctr  -P binary
-    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/7605338/docker-containerd-shim  -P binary
-    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/7605338/docker-runc  -P binary
+    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/6b802c8/docker-1.11.1   -O binary/docker
+    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/6b802c8/docker-containerd   -P binary
+    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/6b802c8/docker-containerd-ctr  -P binary
+    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/6b802c8/docker-containerd-shim  -P binary
+    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/6b802c8/docker-runc  -P binary
 fi
 
 sudo chmod +x binary/*
