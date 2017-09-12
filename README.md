@@ -1,6 +1,13 @@
+
+
+
+## 新建开发测试集群
+
+开发测试集群采用1master + N worker 模式（N可以为0），用于开发测试环境，不建议在生产环境使用。
+
 ## 新建集群
 
-在阿里云上创建三台centos7u2的虚拟机，每台都是master兼作worker。
+在阿里云上创建两台centos7u2/7u3的虚拟机，一台都是master兼作worker，一台是纯worker。
 
 
 
@@ -10,10 +17,11 @@
 
 ```
 cd /opt && \
-wget http://zanecloud-deploy.oss-cn-beijing.aliyuncs.com/zanecloud-deploy-1.0.0-5d286e2.tar.gz && \
-tar zxvf zanecloud-deploy-1.0.0-18ddf1e.tar.gz
+wget http://zanecloud-deploy.oss-cn-beijing.aliyuncs.com/zanecloud-deploy-1.0.0-single-5d286e2.tar.gz && \
+tar zxvf zanecloud-deploy-1.0.0-single-18ddf1e.tar.gz
 ```
 
+注意，GITCOMMIT会发生变化
 
 
 ### 初始化flannel网络端
@@ -28,28 +36,18 @@ export FLANNEL_NETWORK=172.16.0.0/12
 ### 初始化 master 相关服务
 
 ```
-cd /opt/zanecloud-deploy && MASTER0_IP=xxxx MASTER1_IP=xxxx MASTER2_IP=xxxx PROVIDER=aliyun API_SERVER=tcp://xxxx:8080 bash -x setup-master.sh  --type=swarm
+cd /opt/zanecloud-deploy &&  PROVIDER=native API_SERVER=tcp://xxxx:8080 bash -x setup-master.sh  --type=swarm --with-zlb
 ```
 
-以上MASTERx_IP均为VM的内网IP，API_SERVER的IP是公网IP（如果Docker集群与API服务器在同一个集群，则也可以使用私网IP）。
-
-注意：由于三台master需要互相组网，所以以上命令请在三台机器上并发执行。
+API_SERVER的IP是公网IP（如果Docker集群与API服务器在同一个集群，则也可以使用私网IP）。
 
 
-到此一个三节点的Zanecloud集群搭建成功。
-
-
-## 扩容集群
-
-### 初始化 worker相关服务
-
+### 初始化 worker 相关服务
 ```
-cd /opt/zanecloud-deploy && MASTER0_IP=xxxx MASTER1_IP=xxxx MASTER2_IP=xxxx PROVIDER=aliyun  bash setup-worker.sh --type=swarm
+cd /opt/zanecloud-deploy && MASTER_IP=xxxx  PROVIDER=native API_SERVER=tcp://xxxx:8080 bash -x setup-worker.sh  --type=swarm --with-zlb
 ```
+注意，这里需要输入master ip，这样才能组成集群。
 
-以上MASTERx_IP均为VM的内网IP。
-
-如果集群中只有master没有worker，此步骤忽略。
 
 
 
