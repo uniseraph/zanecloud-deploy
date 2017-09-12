@@ -35,7 +35,7 @@ do
         --with-elk)
                 WITH_ELK=true
                 ;;
-        --with-elk)
+        --with-ebk)
                 WITH_EBK=true
                 ;;
         --with-hdfs)
@@ -70,7 +70,7 @@ echo "WITH_CADVISOR=${WITH_CADVISOR}"
 echo "WITH_YARN=${WITH_YARN}"
 echo "WITH_HDFS=${WITH_HDFS}"
 echo "WITH_ELK=${WITH_ELK}"
-echo "WITH_ELK=${WITH_EBK}"
+echo "WITH_EBK=${WITH_EBK}"
 echo "WITH_ELBV2=${WITH_ELBV2}"
 echo "WITH_SLB=${WITH_SLB}"
 echo "WITH_ZLB=${WITH_ZLB}"
