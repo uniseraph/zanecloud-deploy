@@ -35,7 +35,7 @@ sed -i -e "s#master#${MASTER_IP}#g" /etc/filebeat/filebeat.yml
 systemctl restart filebeat
 systemctl enable filebeat
 systemctl status filebeat
-/usr/share/filebeat/scripts/import_dashboards -es http://${MASTER_IP}:9200 -user elastic -url http://zanecloud-others.oss-cn-beijing.aliyuncs.com/beats-dashboards-5.5.1.zip
+/usr/share/filebeat/scripts/import_dashboards -es http://${MASTER_IP}:9200 -user elastic -url http://zanecloud-others.oss-cn-beijing.aliyuncs.com/beats-dashboards-5.4.0.zip
 
 
 
