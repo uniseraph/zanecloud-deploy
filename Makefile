@@ -46,7 +46,7 @@ release-withdeps:
     docker pull andyshinn/dnsmasq:2.75 && \
     docker pull consul:0.7.5 && \
     docker pull docker/compose:1.9.0 && \
-    docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb:1.0-3120dd1 && \
+    docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb:1.0.1-3120dd1 && \
     docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb-api:0.1.0-718980e && \
     docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/kibana:5.4.0 && \
     docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/elasticsearch:5.4.0 && \
