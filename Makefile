@@ -7,7 +7,7 @@ VERSION = $(shell cat VERSION)
 GITCOMMIT = $(shell git log -1 --pretty=format:%h)
 BUILD_TIME = $(shell date --rfc-3339 ns 2>/dev/null | sed -e 's/ /T/')
 
-DOCKER_GITCOMMIT=d349391
+DOCKER_GITCOMMIT=7605338
 
 release:
 	rm -rf release && mkdir -p release/zanecloud-deploy
@@ -30,11 +30,11 @@ release-withdeps:
 	cp *.conf.template release/zanecloud-deploy
 	cp *.sh release/zanecloud-deploy
 	mkdir -p release/zanecloud-deploy/binary && \
-	    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-1.11.1   -O release/zanecloud-deploy/binary/docker   && \
-        wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd  -P release/zanecloud-deploy/binary  && \
-        wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd-ctr  -P release/zanecloud-deploy/binary  && \
-        wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd-shim   -P release/zanecloud-deploy/binary  && \
-        wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-runc  -P release/zanecloud-deploy/binary && \
+	    wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/7605338/docker-1.11.1   -O release/zanecloud-deploy/binary/docker   && \
+        wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/7605338/docker-containerd  -P release/zanecloud-deploy/binary  && \
+        wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/7605338/docker-containerd-ctr  -P release/zanecloud-deploy/binary  && \
+        wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/7605338/docker-containerd-shim   -P release/zanecloud-deploy/binary  && \
+        wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/7605338/docker-runc  -P release/zanecloud-deploy/binary && \
         wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-x86_64.rpm  -P release/zanecloud-deploy/binary && \
         wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.4.0-x86_64.rpm  -P release/zanecloud-deploy/binary
 	docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-eda6edf && \

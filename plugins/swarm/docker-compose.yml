@@ -2,7 +2,7 @@ version: '2'
 
 services:
  master:
-  image: swarm:1.2.6
+  image: registry.cn-hangzhou.aliyuncs.com/zanecloud/swarm:1.2.7-ace135e
   restart: always
   network_mode: host
   pid: host
