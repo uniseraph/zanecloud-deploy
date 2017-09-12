@@ -44,7 +44,7 @@ API_SERVER的IP是公网IP（如果Docker集群与API服务器在同一个集群
 
 ### 初始化 worker 相关服务
 ```
-cd /opt/zanecloud-deploy && MASTER_IP=xxxx  PROVIDER=native API_SERVER=tcp://xxxx:8080 bash -x setup-worker.sh  --type=swarm --with-zlb
+cd /opt/zanecloud-deploy && MASTER_IP=xxxx  PROVIDER=native  bash -x setup-worker.sh  --type=swarm --with-zlb
 ```
 注意，这里需要输入master ip，这样才能组成集群。
 
