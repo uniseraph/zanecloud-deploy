@@ -29,6 +29,7 @@ WITH_EBK=false
 WITH_ZLB=false
 WITH_ELBV2=false
 WITH_SLB=false
+LB=none
 
 ARGS=`getopt -a -o T: -l type:,with-cadvisor,with-yarn,with-elk,with-ebk,with-hdfs,with-elbv2,with-slb,with-zlb,help -- "$@" `
 [ $? -ne 0 ] && usage
@@ -52,18 +53,21 @@ do
                 ;;
         --with-ebk)
                 WITH_EBK=true
-                ;;          
+                ;;
         --with-yarn)
                 WITH_YARN=true
                 ;;
         --with-zlb)
                 WITH_ZLB=true
+                LB=zlb
                 ;;
          --with-elbv2)
                 WITH_ELBV2=true
+                LB=elbv2
                 ;;
         --with-slb)
                 WITH_SLB=true
+                LB=slb
                 ;;
         -h|--help)
                 usage
@@ -86,7 +90,7 @@ echo "WITH_ELK=${WITH_EBK}"
 echo "WITH_ZLB=${WITH_ZLB}"
 echo "WITH_ELBV2=${WITH_ELBV2}"
 echo "WITH_SLB=${WITH_SLB}"
-
+export LB
 
 if type apt-get >/dev/null 2>&1; then
   echo 'using apt-get '
