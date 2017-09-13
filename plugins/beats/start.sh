@@ -20,9 +20,9 @@ elif type rpm >/dev/null 2>&1; then
     fi
     sudo rpm -vi binary/metricbeat-5.5.1-x86_64.rpm
     if [[ ! -f binary/filebeat-5.4.0-x86_64.rpm ]] ; then
-        wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.4.0-x86_64.rpm -P binary
+        wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.5.1-x86_64.rpm -P binary
     fi
-    rpm -vi binary/filebeat-5.4.0-x86_64.rpm
+    rpm -vi binary/filebeat-5.5.1-x86_64.rpm
 else
     echo "no dpkg and no yum"
     exit
@@ -35,7 +35,7 @@ sed -i -e "s#master2#${MASTER2_IP}#g" /etc/filebeat/filebeat.yml
 systemctl restart filebeat
 systemctl enable filebeat
 systemctl status filebeat
-/usr/share/filebeat/scripts/import_dashboards -es http://${MASTER0_IP}:9200 -user elastic -url http://zanecloud-others.oss-cn-beijing.aliyuncs.com/beats-dashboards-5.4.0.zip
+/usr/share/filebeat/scripts/import_dashboards -es http://${MASTER0_IP}:9200 -user elastic -url http://zanecloud-others.oss-cn-beijing.aliyuncs.com/beats-dashboards-5.5.1.zip
 
 
 
