@@ -168,7 +168,28 @@ metricbeat有默认的dashboard，可以直接在kibana中使用,安装默认das
 
 ### 与docker集成
 
+filebeat可以直接取每个容器的stdout/stderr，也可以取容器mount到宿主机的日志目录（需要二次开发）
+```
+   paths:
+      - /var/lib/docker/containers/*/*-json.log
+    json.keys_under_root: true
+    json.add_error_key: true
+    json.message_key: log
+```
+
+metricbeat 有docker module，可以直接取容器的性能数据
+```
+ - module: docker
+    metricsets: ["container", "cpu", "diskio", "healthcheck","image",  "info", "memory", "network"]
+    hosts: ["unix:///var/run/docker.sock"]
+    enabled: true
+    period: 10s
+```
 ### 日志深度分析
+
+
+
+
 
 ### 自定义beat
 
