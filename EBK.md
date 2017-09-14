@@ -27,6 +27,8 @@ logstach与beat的源流关系请参考：https://logz.io/blog/filebeat-vs-logst
 
 ## EBK架构
 
+![EBK架构图](https://www.google.com.hk/url?sa=i&rct=j&q=&esrc=s&source=imgres&cd=&cad=rja&uact=8&ved=0ahUKEwjx4dKE8KTWAhWDjJQKHX-wBusQjRwIBw&url=%68%74%74%70%73%3a%2f%2f%77%77%77%2e%65%6c%61%73%74%69%63%2e%63%6f%2f%67%75%69%64%65%2f%65%6e%2f%62%65%61%74%73%2f%6c%69%62%62%65%61%74%2f%6d%61%73%74%65%72%2f%62%65%61%74%73%2d%72%65%66%65%72%65%6e%63%65%2e%68%74%6d%6c&psig=AFQjCNE2lXCKBeA87Yi1WQYy2HQyrjzK6w&ust=1505485331651854)
+
 
 beats 负责收集数据，包括性能数据／业务日志数据
 elasticsearch 负责数据存储与搜索
