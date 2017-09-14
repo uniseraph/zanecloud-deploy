@@ -29,6 +29,7 @@ logstach与beat的源流关系请参考：https://logz.io/blog/filebeat-vs-logst
 
 ![EBK架构图](https://www.elastic.co/guide/en/beats/libbeat/master/images/beats-platform.png)
 
+![应用监控架构](https://amsterdam.luminis.eu/wp-content/uploads/2017/04/overview-infrastructuur-beats.png)
 
 beats 负责收集数据，包括性能数据／业务日志数据
 
@@ -166,6 +167,26 @@ metricbeat有默认的dashboard，可以直接在kibana中使用,安装默认das
 ./scripts/import_dashboards -es http://192.168.33.60:9200
 ```
 
+### 部署与配置heartbeat
+
+heartbeat是一个监控服务是否存活的工具，同样可以将结果输出到es，在kibana中展现。
+```
+# Configure monitors
+heartbeat.monitors:
+- type: http
+  urls: ["https://amsterdam.luminis.eu:443"]
+  schedule: '@every 60s'
+ 
+- type: http
+  urls: ["https://api.devcon.luminis.amsterdam:443/monitoring/ping"]
+  schedule: '@every 30s'
+ 
+dashboards.enabled: true
+ 
+output.elasticsearch:
+  hosts: ["localhost:9200"]
+```
+
 ### 与docker集成
 
 filebeat可以直接取每个容器的stdout/stderr，也可以取容器mount到宿主机的日志目录（需要二次开发）
@@ -186,6 +207,31 @@ metricbeat 有docker module，可以直接取容器的性能数据
     period: 10s
 ```
 ### 日志深度分析
+
+上述架构中，只是对日志进行简单的处理，存入es的数据基本是原始数据，为了满足深层次日志分析与挖掘需求，需要引入新的主键。
+
+
+```
+output.kafka:
+  # initial brokers for reading cluster metadata
+  hosts: ["kafka1:9092", "kafka2:9092", "kafka3:9092"]
+
+  # message topic selection + partitioning
+  topic: '%{[type]}'
+  partition.round_robin:
+    reachable_only: false
+
+  required_acks: 1
+  compression: gzip
+  max_message_bytes: 1000000
+
+output.elasticsearch:
+  hosts: ["es1:9200","es2:9200","es3:9200"]
+```
+
+这样，可以使用spark/jstorm等流处理框架从kafka中读取日志数据，开发复杂逻辑的自定义job处理，处理结果可以存回es，也可以另外保存展现。
+
+![](advanced-ebk.png)
 
 
 
