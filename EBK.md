@@ -31,8 +31,12 @@ logstach与beat的源流关系请参考：https://logz.io/blog/filebeat-vs-logst
 
 
 beats 负责收集数据，包括性能数据／业务日志数据
+
 elasticsearch 负责数据存储与搜索
+
 kibana 负责数据展现
+
+logstash 是一个可选的模块，可以对beats收集到的日志进行一定的处理如格式转换，然后将处理结果写入elasticsearch以供查询
 
 
 
@@ -49,12 +53,71 @@ MASTER0_IP=ip0 MASTER1_IP=ip1 MASTER2_IP=ip2 PROVIDER=native API_SERVER=tcp://ip
 执行上述命令会生成一个zanecloud容器云，自带一个3节点的elasticsearch集群和kibana。
 
 
-### 部署filebeat
+### 部署与配置filebeat
 
 filebeat是一个go appliation，特点是依赖少运行时资源消耗小，支持linux／windows。安装请参考：
 https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation.html
 
+在linux 环境下，zanecloud容器云提供一键安装beats的功能；在windows下，请自行安装。
 
+filebeat能够收集指定目录下的日志文件
+```
+filebeat.prospectors:
+- input_type: log
+  paths:
+    - /var/log/apache/httpd-*.log
+  document_type: apache
+
+- input_type: log
+  paths:
+    - /var/log/messages
+    - /var/log/*.log
+```
+
+filebeat能够为日志指定tag，便于kibana搜索
+```
+filebeat.prospectors:
+- paths: ["/var/log/app/*.json"]
+  tags: ["json"]
+```
+
+filebeat可以为日志增加内容
+```
+filebeat.prospectors:
+- paths: ["/var/log/app/*.log"]
+  fields:
+    app_id: query_engine_12
+    hostname: master0
+    hostip: 10.10.10.120
+```
+
+filebeat可以直接写入到elasticsearch中
+```
+output.elasticsearch:
+  hosts: ["10.45.3.2:9220", "10.45.3.1:9230"]
+  protocol: https
+  path: /elasticsearch
+```
+
+filebeat有很多扩展模块，可以有效收集常见软件的日志，并通过es/kibana展现.
+
+```
+filebeat.modules:
+- module: nginx
+  access:
+    var.paths: ["/var/log/nginx/access.log*"]
+- module: mysql
+- module: system
+- module: kafka
+
+```
+
+![默认的nginx日志展现](https://www.elastic.co/guide/en/beats/filebeat/master/images/kibana-nginx.png)
+
+
+
+
+建议将应用日志以json格式存储，便于扩展与分析。
 
 
 ### 部署metricbeat
