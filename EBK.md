@@ -114,13 +114,57 @@ filebeat.modules:
 
 ![默认的nginx日志展现](https://www.elastic.co/guide/en/beats/filebeat/master/images/kibana-nginx.png)
 
+filebeat 扩展模块列表:https://www.elastic.co/guide/en/beats/filebeat/master/filebeat-modules.html
 
 
+注意：建议将应用日志以json格式存储，便于扩展与分析。
 
-建议将应用日志以json格式存储，便于扩展与分析。
+
+### 部署与配置metricbeat
+
+metricbeat是性能数据采集模块，支持linux/windows，安装请参考：https://www.elastic.co/guide/en/beats/metricbeat/5.5/metricbeat-installation.html
+
+zanecloud容器云支持linux下一键安装metricbeat
+
+metricbeat默认采集系统基础数据
+```
+metricbeat.modules:
+- module: system
+  metricsets:
+    - cpu
+    - filesystem
+    - memory
+    - network
+    - process
+  enabled: true
+  period: 10s
+  processes: ['.*']
+  cpu_ticks: false
+```
+
+metricbeat支持apache/nginx/redis/mongodb等常用软件的默认性能数据采集，并通过es/kibana展现
+```
+metricbeat.modules:
+- module: apache
+  metricsets: ["status"]
+  enabled: true
+  period: 1s
+  hosts: ["http://127.0.0.1"]
+```
+
+metricbeat支持的常见模块包括：https://www.elastic.co/guide/en/beats/metricbeat/5.5/metricbeat-modules.html
 
 
-### 部署metricbeat
+性能数据可以直接写入es
+```
+output.elasticsearch:
+  hosts: ["192.168.1.42:9200"]
+```
+
+metricbeat有默认的dashboard，可以直接在kibana中使用,安装默认dashboard使用如下命令
+```
+./scripts/import_dashboards -es http://192.168.33.60:9200
+```
 
 ### 与docker集成
 
