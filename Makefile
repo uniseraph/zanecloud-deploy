@@ -36,7 +36,8 @@ release-withdeps:
         wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-containerd-shim   -P release/zanecloud-deploy/binary  && \
         wget http://zanecloud-docker.oss-cn-shanghai.aliyuncs.com/1.11.1/d349391/docker-runc  -P release/zanecloud-deploy/binary && \
         wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-x86_64.rpm  -P release/zanecloud-deploy/binary && \
-        wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.5.1-x86_64.rpm  -P release/zanecloud-deploy/binary
+        wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.5.1-x86_64.rpm  -P release/zanecloud-deploy/binary  && \
+        wget  http://zanecloud-others.oss-cn-beijing.aliyuncs.com/beats-dashboards-5.5.1.zip -P release/zanecloud-deploy/binary
 	docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-eda6edf && \
 	  docker pull swarm:1.2.6 && \
 	  docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/tunneld:0.1.0-81e006c && \

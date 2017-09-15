@@ -34,8 +34,14 @@ cp ${BASE_DIR}/filebeat/config/filebeat.yml /etc/filebeat/filebeat.yml
 sed -i -e "s#master#${MASTER_IP}#g" /etc/filebeat/filebeat.yml
 systemctl restart filebeat
 systemctl enable filebeat
-systemctl status filebeat
-/usr/share/filebeat/scripts/import_dashboards -es http://${MASTER_IP}:9200 -user elastic -url http://zanecloud-others.oss-cn-beijing.aliyuncs.com/beats-dashboards-5.5.1.zip
+#systemctl status filebeat
+
+if [[ ! -f binary/beats-dashboards-5.5.1.zip  ]] ; then
+   wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/beats-dashboards-5.5.1.zip -P binary
+fi
+
+/usr/share/filebeat/scripts/import_dashboards -es http://${MASTER_IP}:9200 -user elastic \
+	-file  binary/beats-dashboards-5.5.1.zip
 
 
 
@@ -43,5 +49,6 @@ cp ${BASE_DIR}/metricbeat/config/metricbeat.yml /etc/metricbeat/metricbeat.yml
 sed -i -e "s#master#${MASTER_IP}#g" /etc/metricbeat/metricbeat.yml
 systemctl restart metricbeat
 systemctl enable metricbeat
-systemctl status metricbeat
-/usr/share/metricbeat/scripts/import_dashboards -es http://${MASTER_IP}:9200 -user elastic -url http://zanecloud-others.oss-cn-beijing.aliyuncs.com/beats-dashboards-5.5.1.zip
+#systemctl status metricbeat
+/usr/share/metricbeat/scripts/import_dashboards -es http://${MASTER_IP}:9200 -user elastic \
+	-file binary/beats-dashboards-5.5.1.zip
