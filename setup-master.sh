@@ -127,6 +127,9 @@ else
     exit -1
 fi
 
+if [[ ${WITH_EBK} == true ]]; then
+    bash -x plugins/elk/start.sh  kibana elasticsearch
+fi
 
 if [[ ${WITH_ELBV2} == true ]]; then
     bash -x plugins/elbv2/start.sh
@@ -141,14 +144,13 @@ if [[ ${WITH_ELK} == true ]]; then
     bash -x plugins/elk/start.sh logspout logstash  kibana elasticsearch
 fi
 
-if [[ ${WITH_EBK} == true ]]; then
-    bash -x plugins/elk/start.sh  kibana elasticsearch
-    bash -x plugins/beats/start.sh
-fi
 
 if [[ ${WITH_ZLB} == true ]]; then
     bash -x plugins/zlb/start.sh watchdog zlb zlb-api
 fi
 
+if [[ ${WITH_EBK} == true ]]; then
+    bash -x plugins/beats/start.sh
+fi
 
 echo "nameserver 127.0.0.1" > /etc/resolv.conf
