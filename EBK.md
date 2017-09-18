@@ -10,16 +10,18 @@
 
 ## 监控系统的基础功能
 收集服务器的各项基础指标，比如memory,cpu,load,network等；
+
 收集应用的状态，jvm状态，是否存活等； 
+
 收集应用日志，并进行分析和统计。通过日志分析和统计可得到应用的访问统计，异常统计，业务统计。具有进行大规模日志数据的分析和处理能力。
+
 可制定告警规则。各种监控数据进入系统后，可以根据条件触发告警，实时的将应用异常情况推送到运维、开发或业务人员的IM/SMS上。
+
 可定制的看板。可以将各种实时统计或报表直观的显示出来。
 
 ## 什么是EBK
 
 EBK= elasticsearch + beats (filebeat/metricbeat) + kibana
-
-
 
 EBK是ELK的升级版，相对于logstash，beats功能更强大，性能更好，资源消耗小。beats分为filebeat/metricbeat/heartbeat/packetbeat/winlogbeat，其中最常用的是filebeat/metricbeat.
 
