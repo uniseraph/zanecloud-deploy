@@ -3,19 +3,14 @@
 
 BASE_DIR=$(cd `dirname $0` && pwd -P)
 
-
-
-
 ES_NAME="es0"
-
-
 
 MASTER_IP=${MASTER_IP:-${LOCAL_IP}}
 
 
-#DIS_URL=${DIS_URL:-"zk://${MASTER0_IP}:2181,${MASTER1_IP}:2181,${MASTER2_IP}:2181/default"}
+cp -f plugins/elk/logstash/pipeline.conf.template plugins/elk/logstash/pipeline.conf
 
-#HOSTNAME=`hostname`
+sed -i -e "s#localhost#${MASTER_IP}#g" plugins/elk/logstash/pipeline.conf
 
 docker  -H unix:///var/run/bootstrap.sock run --net=host -ti --rm \
         -v ${BASE_DIR}:${BASE_DIR} \
