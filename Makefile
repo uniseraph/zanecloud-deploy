@@ -38,7 +38,7 @@ release-withdeps:
         wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-x86_64.rpm  -P release/zanecloud-deploy/binary && \
         wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.5.1-x86_64.rpm  -P release/zanecloud-deploy/binary  && \
         wget  http://zanecloud-others.oss-cn-beijing.aliyuncs.com/beats-dashboards-5.5.1.zip -P release/zanecloud-deploy/binary
-	docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-d99b6a7 && \
+	docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-99ca0c8 && \
 	  docker pull swarm:1.2.6 && \
 	  docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/tunneld:0.1.0-81e006c && \
 	  docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/metad:0.1.0 && \
@@ -52,7 +52,7 @@ release-withdeps:
     docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/kibana:5.4.0 && \
     docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/elasticsearch:5.4.0 && \
     docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/logstash:5.4.0
-	docker save -o release/zanecloud-deploy/image.tar registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-d99b6a7  \
+	docker save -o release/zanecloud-deploy/image.tar registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-99ca0c8  \
             swarm:1.2.6  \
             registry.cn-hangzhou.aliyuncs.com/zanecloud/tunneld:0.1.0-81e006c  \
             registry.cn-hangzhou.aliyuncs.com/zanecloud/metad:0.1.0  \
