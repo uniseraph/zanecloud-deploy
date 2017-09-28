@@ -38,7 +38,7 @@ release-withdeps:
         wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/metricbeat-5.5.1-x86_64.rpm  -P release/zanecloud-deploy/binary && \
         wget http://zanecloud-others.oss-cn-beijing.aliyuncs.com/filebeat-5.5.1-x86_64.rpm  -P release/zanecloud-deploy/binary  && \
         wget  http://zanecloud-others.oss-cn-beijing.aliyuncs.com/beats-dashboards-5.5.1.zip -P release/zanecloud-deploy/binary
-	docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-eda6edf && \
+	docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-d99b6a7 && \
 	  docker pull swarm:1.2.6 && \
 	  docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/tunneld:0.1.0-81e006c && \
 	  docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/metad:0.1.0 && \
@@ -47,12 +47,12 @@ release-withdeps:
     docker pull andyshinn/dnsmasq:2.75 && \
     docker pull consul:0.7.5 && \
     docker pull docker/compose:1.9.0 && \
-    docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb:1.0.1-3120dd1 && \
-    docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb-api:0.1.0-718980e && \
+    docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb:1.0.3-656374d && \
+    docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb-api:0.1.1-afb9c74 && \
     docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/kibana:5.4.0 && \
     docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/elasticsearch:5.4.0 && \
     docker pull registry.cn-hangzhou.aliyuncs.com/zanecloud/logstash:5.4.0
-	docker save -o release/zanecloud-deploy/image.tar registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-eda6edf  \
+	docker save -o release/zanecloud-deploy/image.tar registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-d99b6a7  \
             swarm:1.2.6  \
             registry.cn-hangzhou.aliyuncs.com/zanecloud/tunneld:0.1.0-81e006c  \
             registry.cn-hangzhou.aliyuncs.com/zanecloud/metad:0.1.0  \
@@ -61,11 +61,11 @@ release-withdeps:
             andyshinn/dnsmasq:2.75  \
             consul:0.7.5 \
             docker/compose:1.9.0 \
-            registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb-api:0.1.0-718980e \
+            registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb-api:0.1.1-afb9c74 \
             registry.cn-hangzhou.aliyuncs.com/zanecloud/kibana:5.4.0 \
             registry.cn-hangzhou.aliyuncs.com/zanecloud/elasticsearch:5.4.0 \
             registry.cn-hangzhou.aliyuncs.com/zanecloud/logstash:5.4.0 \
-	    registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb:1.0.1-3120dd1
+	    registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb:1.0.3-656374d
 	cd release && tar zcvf zanecloud-deploy-withdeps-${VERSION}-${GITCOMMIT}.tar.gz  zanecloud-deploy && cd ..
 
 
