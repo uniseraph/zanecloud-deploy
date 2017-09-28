@@ -2,7 +2,7 @@ version: '2'
 
 services:
  zlb:
-  image: registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb:1.0.3-656374d
+  image: registry.cn-hangzhou.aliyuncs.com/zanecloud/zlb:1.0.3-2bcd6c3
   restart: always
   network_mode: host
   pid: host
