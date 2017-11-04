@@ -22,7 +22,7 @@ systemctl stop docker
 
 echo "DOCKER_OPTS=\"  --dns ${LOCAL_IP}  --ip-masq=${FLANNEL_IPMASQ}  --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU}  \
         --log-driver=json-file --log-opt max-file=10 --log-opt max-size=100m \
-        --log-opt labels=com.zanecloud.compose.application.id,com.docker.compose.project,com.docker.compose.service\ 
+        --log-opt labels=com.zanecloud.compose.application.id,com.docker.compose.project,com.docker.compose.service \ 
         -s overlay --registry-mirror=https://rmw18jx4.mirror.aliyuncs.com  \
         --label=provider=${PROVIDER}  --label=lb=${LB}         \""  > /etc/sysconfig/docker
 
