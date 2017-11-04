@@ -1,0 +1,7 @@
+{
+  "Name": "zlb-api",
+  "Tags": [],
+  "Address": "localhost",
+  "Port": 6300,
+  "EnableTagOverride": false
+}

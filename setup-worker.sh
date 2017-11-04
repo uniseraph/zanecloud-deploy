@@ -96,6 +96,7 @@ else
   exit
 fi
 
+MASTER_IP=${MASTER_IP:-$LOCAL_IP}
 
 bash -x init-node.sh  && \
 bash -x start-bootstrap.sh  dnsmasq flanneld consul-agent  && \
@@ -112,6 +113,7 @@ elif [[ ${TYPE} == "swarm" ]]; then
     bash -x plugins/watchdog/start.sh
 elif [[ ${TYPE} == "kubernetes" ]]; then
 
+    bash -x plugins/kubernetes/init-kubernetes.sh
     bash -x plugins/kubernetes/start-worker.sh
 
 
