@@ -122,6 +122,11 @@ elif [[ ${TYPE} == "kubernetes" ]]; then
     bash -x plugins/kubernetes/start-master.sh
     bash -x plugins/kubernetes/start-worker.sh
 
+elif [[ ${TYPE} == "none" ]]; then
+    bash -x start-bootstrap.sh  etcd  dnsmasq flanneld consul-server  && \
+    bash -x start-docker.sh
+
+    bash -x plugins/watchdog/start.sh
 else
     echo  "No such cluster type:${TYPE}"
     exit -1
