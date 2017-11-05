@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-MODE=$1
 
 BASE_DIR=$(cd `dirname $0` && pwd -P)
 
@@ -12,4 +11,4 @@ docker -H unix:///var/run/bootstrap.sock run --net=host -ti --rm \
         -e MODE=${MODE} \
         -w ${BASE_DIR} \
         docker/compose:1.9.0 \
-        up -d $*
+        up -d

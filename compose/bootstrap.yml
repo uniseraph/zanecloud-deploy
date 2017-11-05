@@ -44,14 +44,14 @@ services:
   environment:
    - "affinity:container!=*dnsmasq*"
  consul-server:
-   image: consul:0.7.5
+   image: consul:1.0.0
    network_mode: host
    restart: always
    command:  agent -dev --data-dir=/consul/data   -ui -client=0.0.0.0 -bind=0.0.0.0 -advertise=${LOCAL_IP}
    volumes:
      - consul-server-data:/consul/data
  consul-agent:
-   image: consul:0.7.5
+   image: consul:1.0.0
    network_mode: host
    restart: always
    command:  consul agent -data-dir=/consul/data -join=${MASTER_IP} -advertise=${LOCAL_IP}

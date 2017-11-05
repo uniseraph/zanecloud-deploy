@@ -110,13 +110,15 @@ elif [[ ${TYPE} == "swarm" ]]; then
    # export DIS_URL="consul://127.0.0.1:8500/default"
 
     bash -x plugins/swarm/start.sh agent
-    bash -x plugins/watchdog/start.sh
+    MODE=name bash -x plugins/watchdog/start.sh
 elif [[ ${TYPE} == "kubernetes" ]]; then
 
     bash -x plugins/kubernetes/init-kubernetes.sh
     bash -x plugins/kubernetes/start-worker.sh
 
+elif [[ ${TYPE} == "none" ]]; then
 
+    MODE=name bash -x plugins/watchdog/start.sh
 else
     echo  "No such cluster type:${TYPE}"
     exit -1

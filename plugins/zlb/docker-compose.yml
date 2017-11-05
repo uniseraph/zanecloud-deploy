@@ -9,7 +9,7 @@ services:
   environment:
    - CONSUL_8500_TCP_ADDR=127.0.0.1:8500
    - "affinity:container!=*zlb-zlb*"
-   - DOCKER_HOST=unix:///var/run/docker.sock
+   - DOCKER_HOST=tcp://127.0.0.1:2376
  watchdog:
   image: registry.cn-hangzhou.aliyuncs.com/zanecloud/watchdog:0.2.0-99ca0c8
   restart: always
