@@ -108,7 +108,7 @@ elif [[ ${TYPE} == "swarm" ]]; then
     bash -x start-bootstrap.sh  etcd  dnsmasq flanneld consul-server  && \
     bash -x start-docker.sh
 
-    bash -x plugins/watchdog/start.sh
+    bash -x plugins/watchdog/start.sh  docker-compose
     bash -x plugins/metad/start.sh
     bash -x plugins/tunneld/start.sh
 
@@ -126,7 +126,7 @@ elif [[ ${TYPE} == "none" ]]; then
     bash -x start-bootstrap.sh  etcd  dnsmasq flanneld consul-server  && \
     bash -x start-docker.sh
 
-    bash -x plugins/watchdog/start.sh
+    bash -x plugins/watchdog/start.sh name
 else
     echo  "No such cluster type:${TYPE}"
     exit -1

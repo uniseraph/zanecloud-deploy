@@ -7,11 +7,6 @@ services:
   network_mode: host
   privileged: true
   pid: host
-  volumes:
-   - /var/run:/var/run:ro
-  labels:
-   - com.zanecloud.labels.system=true
   environment:
-   - "affinity:container!=*watchdog-watchdog*"
-   - DOCKER_HOST=unix:///var/run/docker.sock
-  command: --log-level=debug -m docker-compose --ip ${LOCAL_IP} consul://127.0.0.1:8500
+   - DOCKER_HOST=127.0.0.1:2376
+  command: --log-level=debug -m ${MODE} --ip ${LOCAL_IP} consul://127.0.0.1:8500
