@@ -8,5 +8,5 @@ services:
   privileged: true
   pid: host
   environment:
-   - DOCKER_HOST=127.0.0.1:2376
+   - DOCKER_HOST=tcp://127.0.0.1:2376
   command: --log-level=debug -m ${MODE} --ip ${LOCAL_IP} consul://127.0.0.1:8500
