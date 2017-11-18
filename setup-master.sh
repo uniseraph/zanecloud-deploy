@@ -99,7 +99,7 @@ if type apt-get >/dev/null 2>&1; then
   #sudo apt-get update && apt-get install -y git jq  bridge-utils tcpdump  haveged strace pstack htop  curl wget  iotop blktrace   dstat ltrace lsof
   export LOCAL_IP=$(ifconfig ${MAIN_DEV} | grep inet\ addr | awk '{print $2}' | awk -F: '{print $2}')
 elif type yum >/dev/nul 2>&1; then
-  export LOCAL_IP=$(ifconfig ${MAIN_DEV} | grep inet | awk '{{print $2}}' )
+  export LOCAL_IP=$(ifconfig ${MAIN_DEV} | grep -P "inet\s+" | awk '{{print $2}}' )
 else
   echo "no apt-get and no yum, exit"
   exit
