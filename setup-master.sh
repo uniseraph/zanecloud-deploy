@@ -82,7 +82,7 @@ echo "WITH_SLB=${WITH_SLB}"
 if type apt-get >/dev/null 2>&1; then
     export LOCAL_IP=$(ifconfig eth0 | grep inet\ addr | awk '{print $2}' | awk -F: '{print $2}')
 elif type yum >/dev/nul 2>&1; then
-  export LOCAL_IP=$(ifconfig eth0 | grep inet | awk '{{print $2}}' )
+  export LOCAL_IP=$(ifconfig eth0 | grep  -P "inet\s+" | awk '{{print $2}}' )
 else
   echo "no apt-get and no yum, exit"
   exit

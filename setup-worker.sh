@@ -92,7 +92,7 @@ elif type yum >/dev/nul 2>&1; then
   echo 'using yum'
   sudo yum install -y  jq bind-utils bridge-utils tcpdump  haveged strace pstack htop iostat vmstat curl wget sysdig pidstat mpstat iotop blktrace perf  dstat ltrace lsof
 
-  export LOCAL_IP=$(ifconfig eth0 | grep inet | awk '{{print $2}}' )
+  export LOCAL_IP=$(ifconfig eth0 | grep -P "inet\s+" | awk '{{print $2}}' )
 
 else
   echo "no apt-get and no yum, exit"
