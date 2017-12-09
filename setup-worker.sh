@@ -20,7 +20,7 @@ if [[ -z ${PROVIDER} ]]; then
     echo "using default provider:aliyun"
     export PROVIDER="aliyun"
 fi
-
+MAIN_DEV=${MAIN_DEV:-"eth0"}
 
 
 TYPE=mesos
